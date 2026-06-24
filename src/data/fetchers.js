@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8800'
+const API_URL = 'http://localhost:8000'
 
 const checkError = (res) => {
   if (!res.ok) {
