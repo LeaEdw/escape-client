@@ -26,7 +26,7 @@ export const setToken = (token) => localStorage.setItem('escape_token', token)
 
 export const removeToken = () => localStorage.removeItem('escape_token')
 
-export const isAuthenticated = () => !!getToken ()
+export const isAuthenticated = () => !!getToken()
 
 
 export function getUserProfile() {

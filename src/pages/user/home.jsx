@@ -2,14 +2,14 @@
 
 
 // JSX Imports
-
+import { GameList } from "../../components/games/gameList"
 
 // Exports
 
 export const Home = () => {
     return (
         <>
-            <h1>Home Page</h1>
+            <GameList/>
         </>
     )
 }

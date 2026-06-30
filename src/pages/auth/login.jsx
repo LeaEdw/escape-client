@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, setToken } from "../../data/auth";
-export const Login = ({setToken}) => {
+
+export const Login = ({onLogin}) => {
   const username = useRef()
   const password = useRef()
   const [error, setError] = useState(null);
@@ -17,16 +18,11 @@ export const Login = ({setToken}) => {
       password: password.current.value
     }
 
-    loginUser(user).then(res => {
-      console.log("Login Response:", res)
-      if (res.valid && (res.active == 1 || res.active === true || res.active === "1")) {
+    login(user).then(res => {
+      if (res.token) {
         setToken(res.token)
-        localStorage.setItem("auth_token", res.token)
-        localStorage.setItem("is_admin", res.is_admin)
-        navigate("/")
-      } else if (res.valid && (res.active === 0 || res.active === false || res.active === "0")) {
-        alert("Your account has been deactivated. Please contact an admin to repeal.")
-        setIsUnsuccessful(true)
+        localStorage.setItem("is_admin", false)
+        navigate("/home")
       } else {
         setIsUnsuccessful(true)
       }
