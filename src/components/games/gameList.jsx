@@ -1,18 +1,18 @@
-
-
+import "./gameList.css"
 
 import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { getGames } from "../../data/games";
 
-export const GameList = () => {
+export const GameCarousel = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
+    align: "center",
     dragFree: true,
     loop: true,
+    containScroll: false
   });
 
   useEffect(() => {
@@ -34,9 +34,9 @@ export const GameList = () => {
   if (error) return <p>Something went wrong loading games</p>;
 
   return (
-    <div className="relative max-w-3xl mx-auto px-8">
+    <div className="relative max-w-5xl mx-auto px-8 embla__container">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">
+        <div className="flex gap-4 embla__slide">
           {games.map((game) => (
             <div
               key={game.id}

@@ -1,5 +1,7 @@
 // CSS Imports 
 
+import { HamburgerMenu } from "../../components/navbar/navbar"
+
 
 // JSX Imports
 
@@ -9,6 +11,7 @@
 export const LeaderBoard = () => {
     return (
         <>
+            <HamburgerMenu/>
             <h1>Leader Board</h1>
         </>
     )

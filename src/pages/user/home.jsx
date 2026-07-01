@@ -1,15 +1,20 @@
-// CSS Imports 
+// CSS Imports
+import "./home.css"
 
 
 // JSX Imports
-import { GameList } from "../../components/games/gameList"
+import { GameCarousel } from "../../components/games/gameList";
+import { HamburgerMenu } from "../../components/navbar/navbar";
 
 // Exports
 
 export const Home = () => {
-    return (
-        <>
-            <GameList/>
-        </>
-    )
-}
+  return (
+    <>
+      <HamburgerMenu />
+      <div className="carousel-container">
+        <GameCarousel />
+      </div>
+    </>
+  );
+};
