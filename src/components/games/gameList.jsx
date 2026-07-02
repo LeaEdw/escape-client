@@ -1,8 +1,9 @@
-import "./gameList.css"
+import "./gameList.css";
 
 import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { getGames } from "../../data/games";
+import { RatingsContainer } from "./gameRating";
 
 export const GameCarousel = () => {
   const [games, setGames] = useState([]);
@@ -10,10 +11,10 @@ export const GameCarousel = () => {
   const [error, setError] = useState(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
-    dragFree: true,
+    draggable: false,
     loop: true,
-    containScroll: false
   });
+  const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
     getGames()
@@ -27,47 +28,76 @@ export const GameCarousel = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      const index = emblaApi.selectedScrollSnap();
+      setSelectedGame(games[index]);
+    };
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi, games]);
+
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
+
+  //   const goToPrev = () => emblaApi && emblaApi?.goToPrev()
+  //   const goToNext = () => emblaApi && emblaApi?.goToNext()
 
   if (isLoading) return <p>Loading games...</p>;
   if (error) return <p>Something went wrong loading games</p>;
 
   return (
-    <div className="relative max-w-5xl mx-auto px-8 embla__container">
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4 embla__slide">
-          {games.map((game) => (
-            <div
-              key={game.id}
-              className="flex-none w-64 bg-white border rounded-xl p-4"
-            >
-              <h3 className="font-medium text-base mb-1">{game.title}</h3>
-              <p className="text-sm text-gray-600 line-clamp-2">
-                {game.description}
-              </p>
-              <p className="text-xs text-gray-500 mt-2">
-                Difficulty: {game.difficulty} / 10
-              </p>
-              <p className="text-xs text-gray-500">
-                Players: {game.number_of_players}
-              </p>
-            </div>
-          ))}
+    <div className="all-elements">
+      <div className="relative max-w-5xl mx-auto px-8 embla__container">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex gap-4 embla__slide">
+            {games.map((game) => {
+              const primaryImage = game.images?.find((img) => img.is_primary);
+
+              return (
+                <div key={game.id} className="flex-none w-100 bg-white p-4">
+                  <h3 className="game_title mb-5">{game.title}</h3>
+
+                  {primaryImage && (
+                    <img
+                      src={`http://localhost:8000/media/${primaryImage.image_path}`}
+                      alt={game.title}
+                      className="w-full h-80 object-cover border mb-5"
+                    />
+                  )}
+                  <div className="game-details">
+                    <div className="left-side-items">
+                      <div className="game-difficulty">
+                        Difficulty {game.difficulty} / 10
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {game.number_of_players} players
+                      </div>
+                    </div>
+                    <div className="right-side-items">Best Time:</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <button
+          onClick={scrollPrev}
+          className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+        >
+          ‹
+        </button>
+        <button
+          onClick={scrollNext}
+          className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+        >
+          ›
+        </button>
       </div>
-      <button
-        onClick={scrollPrev}
-        className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border bg-white"
-      >
-        ‹
-      </button>
-      <button
-        onClick={scrollNext}
-        className="absolute -right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border bg-white"
-      >
-        ›
-      </button>
+      <div className="right-side-elements">
+        <RatingsContainer game={selectedGame} />
+      </div>
     </div>
   );
 };

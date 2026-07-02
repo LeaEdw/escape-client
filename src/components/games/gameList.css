@@ -4,10 +4,22 @@
   --slide-spacing-md-up: 20px;
 }
 
+.all-elements {
+    display: flex;
+    flex-direction: rox;
+    justify-content: space-evenly;
+}
+
 .embla__container {
   display: flex;
   touch-action: pan-y pinch-zoom;
   justify-content: center;
+  /* filter: blur(px);          */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px 0 0 40px;
+  border-radius: 8px;
+  margin-right: 0;
+  
 }
 
 .embla__slide {
@@ -29,3 +41,35 @@
 .embla__container :last-child {
     margin-right: 1rem;
 }
+
+.game_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.game_details {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-side-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.rating-container {
+  display: flex;
+  border: 1px solid #111111;
+  border-radius: 15px;
+  padding: 30px;
+  font-weight: 900;
+  width: 450px;
+}
+
+.rating-item {
+    display: flex;
+    padding: 10px;
+    margin: auto;
+    flex-direction: column
+}
+
