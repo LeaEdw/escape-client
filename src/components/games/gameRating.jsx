@@ -35,16 +35,16 @@ export const RatingsContainer = ({ game }) => {
 
   return (
     <div className="rating-container">
-      <p className="rating-item">
+      <div className="rating-item">
         {avgDesign} <div className="rating-text">Design</div>
-      </p>
-      <p className="rating-item">
+      </div>
+      <div className="rating-item">
         {avgFun} <div className="rating-text">Fun</div>
-      </p>
+      </div>
 
-      <p className="rating-item">
+      <div className="rating-item">
         {avgDifficulty} <div className="rating-text">Difficulty</div>
-      </p>
+      </div>
     </div>
   );
 };

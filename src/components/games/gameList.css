@@ -73,3 +73,16 @@
     flex-direction: column
 }
 
+.game-data-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    line-height: 3rem;
+
+}
+
+.difficulty-container, .user-time-container {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
