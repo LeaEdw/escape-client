@@ -6,6 +6,7 @@ import "./leaderboard.css";
 import { DifficultyComponentStandalone } from "../gameData";
 import { AverageEscapeTime } from "./averageEscape";
 import { motion, AnimatePresence } from "framer-motion";
+import { LeaderboardTable } from "./leaderboardTable";
 
 export const LeaderboardPage = () => {
   const [times, setTimes] = useState([]);
@@ -69,52 +70,52 @@ export const LeaderboardPage = () => {
     if (!emblaApi) return;
     emblaApi.scrollNext();
   };
-  if (error) return <p>Something went wrong loading games</p>;
+  if (error) return <p>Something went wrong loading game details.</p>;
 
   return (
     <div className="all-elements">
-      <div className="left-side-elements">
-        {" "}
-        <div className="relative max-w-3xl mx-auto px-15 leaderboard-embla__container">
-          <div className="leaderboard-carousel">
-            <div
-              className="leaderboard-embla__viewport overflow-hidden"
-              ref={emblaRef}
-            >
-              <div className="leaderboard-embla__slide">
-                {games.map((game) => {
-                  const primaryImage = game.images?.find(
-                    (img) => img.is_primary,
-                  );
+        <div className="left-side-elements" key="left-side">
+          <div className="relative max-w-3xl mx-auto px-15 leaderboard-embla__container">
+            <div className="leaderboard-carousel">
+              <div
+                className="leaderboard-embla__viewport overflow-hidden"
+                ref={emblaRef}
+              >
+                <div className="leaderboard-embla__slide">
+                  {games.map((game) => {
+                    const primaryImage = game.images?.find(
+                      (img) => img.is_primary,
+                    );
 
-                  return (
-                    <div key={game.id} className="flex-none bg-white">
-                      {primaryImage && (
-                        <img
-                          src={`http://localhost:8000/media/${primaryImage.image_path}`}
-                          alt={game.title}
-                          className="game-image"
-                        />
-                      )}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div key={game.id} className="flex-none bg-white">
+                        {primaryImage && (
+                          <img
+                            src={`http://localhost:8000/media/${primaryImage.image_path}`}
+                            alt={game.title}
+                            className="game-image"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+              <button
+                onClick={scrollPrev}
+                className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+              >
+                ←
+              </button>
+              <button
+                onClick={scrollNext}
+                className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+              >
+                →
+              </button>
             </div>
-            <button
-              onClick={scrollPrev}
-              className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
-            >
-              ←
-            </button>
-            <button
-              onClick={scrollNext}
-              className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
-            >
-              →
-            </button>
-          </div>
-          <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait">
+
             {selectedGame && (
               <motion.div
                 key={selectedGame.id}
@@ -139,9 +140,15 @@ export const LeaderboardPage = () => {
                 </div>
               </motion.div>
             )}
-          </AnimatePresence>
+                  </AnimatePresence>
+
+          </div>
         </div>
-      </div>
+
+
+          <div className="right-side-elements" key="right-side">
+            <LeaderboardTable game={selectedGame} />
+          </div>
     </div>
   );
 };

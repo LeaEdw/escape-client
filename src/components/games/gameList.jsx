@@ -8,7 +8,6 @@ import { GameData } from "./gameData";
 import { CommentSection } from "../user/comments";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 export const GameCarousel = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,16 +40,14 @@ export const GameCarousel = () => {
     emblaApi.on("select", onSelect);
     onSelect();
   }, [emblaApi, games]);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, [selectedGame]);
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
-
-    useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000)
-  }, [game?.id])
-
 
   if (isLoading) return <p>Loading games...</p>;
   if (error) return <p>Something went wrong loading games</p>;
@@ -76,7 +73,6 @@ export const GameCarousel = () => {
                         className="w-full h-80 object-cover border mb-5"
                       />
                     )}
-
                   </div>
                 );
               })}

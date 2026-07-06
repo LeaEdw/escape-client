@@ -1,5 +1,8 @@
 .all-elements {
   max-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .embla {
@@ -88,4 +91,45 @@
   text-align: center;
   overflow: hidden;
   line-height: 1.1;
+}
+
+.leaderboard-table {
+  width: 500px;
+  border-collapse: separate;
+  margin-top: 20px;
+  border: 2px solid #111111;
+  border-radius: 25px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  text-align: center;
+  padding: 10px 15px;
+  border-right: 1px solid #ddd;
+}
+
+.leaderboard-table th:last-child,
+.leaderboard-table td:last-child {
+  border-right: none;
+  border-bottom: none;
+}
+
+.leaderboard-user {
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  gap: 10px;
+}
+
+.leaderboard-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leaderboard-empty {
+  color: #aaa;
+  font-style: italic;
 }
