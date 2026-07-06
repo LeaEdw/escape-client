@@ -6,7 +6,7 @@
 
 .all-elements {
     display: flex;
-    flex-direction: rox;
+    flex-direction: row;
     justify-content: space-evenly;
 }
 

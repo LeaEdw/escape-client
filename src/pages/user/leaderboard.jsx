@@ -1,5 +1,6 @@
 // CSS Imports 
 
+import { LeaderboardPage } from "../../components/games/leaderboard/leaderboard.jsx"
 import { HamburgerMenu } from "../../components/navbar/navbar"
 
 
@@ -12,7 +13,7 @@ export const LeaderBoard = () => {
     return (
         <>
             <HamburgerMenu/>
-            <h1>Leader Board</h1>
+            <LeaderboardPage />
         </>
     )
 }

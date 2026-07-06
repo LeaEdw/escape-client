@@ -1,0 +1,32 @@
+.all-elements {
+  max-height: 100vh;
+}
+
+.embla {
+  --slide-size: 70%;
+  --slide-spacing-md-up: 20px;
+}
+
+.leaderboard-embla__viewport {
+  overflow: hidden;
+  height: 700px;
+  /* overscroll-behavior: contain; */
+}
+
+.leaderboard-embla__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.leaderboard-embla__slide {
+  display: flex;
+  flex-direction: row;
+}
+.game-image {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 15px;
+  margin: 20px;
+}
