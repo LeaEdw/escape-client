@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../data/auth";
+import { register, setToken } from "../../data/auth";
+
 export const Register = ({ setToken }) => {
   const firstName = useRef();
   const lastName = useRef();

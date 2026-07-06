@@ -1,0 +1,62 @@
+import { useState } from "react";
+import "./navbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import { removeToken } from "../../data/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark, faHouse, faTrophy, faUser } from "@fortawesome/free-solid-svg-icons";
+
+// This should be able to be ported into various pages that have the go back button ( in theory )
+export const HamburgerMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    removeToken();
+    localStorage.removeItem("is_admin");
+    setIsOpen(false);
+    navigate("/login");
+  };
+
+  const handleNav = (path) => {
+    setIsOpen(false);
+    navigate(path);
+  };
+
+  return (
+    <nav className="navButtons">
+      <div className="navbar-top">
+        <div className="hamburger-wrapper">
+          <button
+            className={`hamburger-btn ${isOpen ? "open" : ""}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <FontAwesomeIcon icon={isOpen ? faXmark : faBars} style={{ color: "black" }} />
+          </button>{" "}
+          <span className="navbar-brand">Escape Game Social</span>
+        </div>
+        {isOpen && (
+          <div className="dropdown-menu">
+            <button onClick={() => handleNav("/home")}>
+              <FontAwesomeIcon icon={faHouse} />
+             <span className="menu-item-text">Home</span> 
+            </button>
+            <button onClick={() => handleNav("/leaderboard")}>
+              <FontAwesomeIcon icon={faTrophy} />
+              <span className="menu-item-text">Leaderboard</span> 
+            </button>{" "}
+            <hr />
+            <button onClick={() => handleNav("/profile")}>
+              <FontAwesomeIcon icon={faUser} />
+              <span className="menu-item-text">Profile</span> 
+            </button>
+            <hr />
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
