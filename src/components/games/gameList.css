@@ -59,7 +59,7 @@
 
 .rating-container {
   display: flex;
-  border: 1px solid #111111;
+  border: 2px solid #111111;
   border-radius: 15px;
   padding: 30px;
   font-weight: 900;

@@ -9,7 +9,7 @@ export const GameData = ({ game }) => {
       <div className="left-side-items">
         {" "}
         <div className="difficulty-container">
-          Difficulty: {game.difficulty} / 10
+          Difficulty: {game.difficulty === "N/A" ? "N/A" : `${game.difficulty} / 10`}
         </div>
         <ul className="game-location-container">
           {game.locations.map((location) => (

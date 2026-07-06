@@ -1,0 +1,51 @@
+.comments {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    margin-top: 50px;
+
+}
+
+.comment-tab {
+  display: flex;
+  border: 2px solid #111111;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px 30px 50px 30px;
+  font-weight: 900;
+  position: absolute;
+  width: 250px;
+  z-index: 1;
+}
+
+.comment-area {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #111111;
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  font-weight: 900;
+  position: relative;
+  z-index: 2;
+  width: 450px;
+  height: 550px;
+  top: 50px;
+  justify-content: space-between;
+}
+
+.comment-footer {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon {
+    padding: 0 10px 0 10px;
+}

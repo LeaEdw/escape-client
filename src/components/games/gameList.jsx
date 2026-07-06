@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { getGames } from "../../data/games";
 import { RatingsContainer } from "./gameRating";
 import { GameData } from "./gameData";
+import { CommentSection } from "../user/comments";
 
 export const GameCarousel = () => {
   const [games, setGames] = useState([]);
@@ -103,6 +104,7 @@ export const GameCarousel = () => {
 
       <div className="right-side-elements">
         <RatingsContainer game={selectedGame} />
+        <CommentSection />
       </div>
     </div>
   );
