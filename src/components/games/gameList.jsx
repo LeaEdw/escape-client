@@ -6,6 +6,8 @@ import { getGames } from "../../data/games";
 import { RatingsContainer } from "./gameRating";
 import { GameData } from "./gameData";
 import { CommentSection } from "../user/comments";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 export const GameCarousel = () => {
   const [games, setGames] = useState([]);
@@ -43,6 +45,12 @@ export const GameCarousel = () => {
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
+    useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000)
+  }, [game?.id])
+
 
   if (isLoading) return <p>Loading games...</p>;
   if (error) return <p>Something went wrong loading games</p>;
@@ -68,17 +76,7 @@ export const GameCarousel = () => {
                         className="w-full h-80 object-cover border mb-5"
                       />
                     )}
-                    {/* <div className="game-details">
-                    <div className="left-side-items">
-                      <div className="game-difficulty">
-                        Difficulty {game.difficulty} / 10
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {game.number_of_players} players
-                      </div>
-                    </div>
-                    <div className="right-side-items">Best Time:</div>
-                  </div> */}
+
                   </div>
                 );
               })}

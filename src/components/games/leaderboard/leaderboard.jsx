@@ -3,6 +3,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import { getGames, getLeaderboard } from "../../../data/games";
 import { RatingsContainer } from "../gameRating";
 import "./leaderboard.css";
+import { DifficultyComponentStandalone } from "../gameData";
+import { AverageEscapeTime } from "./averageEscape";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const LeaderboardPage = () => {
   const [times, setTimes] = useState([]);
@@ -53,100 +56,90 @@ export const LeaderboardPage = () => {
     emblaApi.on("select", onSelect);
     onSelect();
   }, [emblaApi, games]);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, [selectedGame]);
 
   const scrollPrev = () => {
     emblaApi && emblaApi.scrollPrev();
   };
-const scrollNext = () => {
-  if (!emblaApi) return;
-  emblaApi.scrollNext();
-};
+  const scrollNext = () => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  };
   if (error) return <p>Something went wrong loading games</p>;
 
   return (
-    // <div className="all-elements">
-    //   <div className="embla">
-    //     <div className="relative max-w-5xl mx-auto px-8">
-    //       <div className="leaderboard-embla__viewport" ref={emblaRef}>
-    //         <div className="leaderboard-embla__container">
-    //           {games.map((game) => {
-    //             const primaryImage = game.images?.find((img) => img.is_primary);
-
-    //             return (
-    //               <div key={game.id} className="leaderboard-embla__slide">
-    //                 {primaryImage && (
-    //                   <img
-    //                     src={`http://localhost:8000/media/${primaryImage.image_path}`}
-    //                     alt={game.title}
-    //                     className="game-image"
-    //                   />
-    //                 )}
-    //               </div>
-    //             );
-    //           })}
-    //         </div>
-    //       </div>
-    //       <button
-    //         onClick={scrollPrev}
-    //         className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
-    //       >
-    //         ↑
-    //       </button>
-    //       <button
-    //         onClick={scrollNext}
-    //         className="absolute -right-2 top-1/12 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
-    //       >
-    //         ↓
-    //       </button>
-
     <div className="all-elements">
       <div className="left-side-elements">
         {" "}
         <div className="relative max-w-3xl mx-auto px-15 leaderboard-embla__container">
-          <div className="leaderboard-embla__viewport overflow-hidden" ref={emblaRef}>
-            <div className="leaderboard-embla__slide">
-              {games.map((game) => {
-                const primaryImage = game.images?.find((img) => img.is_primary);
+          <div className="leaderboard-carousel">
+            <div
+              className="leaderboard-embla__viewport overflow-hidden"
+              ref={emblaRef}
+            >
+              <div className="leaderboard-embla__slide">
+                {games.map((game) => {
+                  const primaryImage = game.images?.find(
+                    (img) => img.is_primary,
+                  );
 
-                return (
-                  <div key={game.id} className="flex-none bg-white">
-
-                    {primaryImage && (
-                      <img
-                        src={`http://localhost:8000/media/${primaryImage.image_path}`}
-                        alt={game.title}
-                        className="game-image"
-                      />
-                    )}
-                    {/* <div className="game-details">
-                    <div className="left-side-items">
-                      <div className="game-difficulty">
-                        Difficulty {game.difficulty} / 10
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {game.number_of_players} players
-                      </div>
+                  return (
+                    <div key={game.id} className="flex-none bg-white">
+                      {primaryImage && (
+                        <img
+                          src={`http://localhost:8000/media/${primaryImage.image_path}`}
+                          alt={game.title}
+                          className="game-image"
+                        />
+                      )}
                     </div>
-                    <div className="right-side-items">Best Time:</div>
-                  </div> */}
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
+            <button
+              onClick={scrollPrev}
+              className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+            >
+              ←
+            </button>
+            <button
+              onClick={scrollNext}
+              className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+            >
+              →
+            </button>
           </div>
-          <button
-            onClick={scrollPrev}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
-          >
-            ←
-          </button>
-          <button
-            onClick={scrollNext}
-            className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
-          >
-            →
-          </button>
-
+          <AnimatePresence mode="wait">
+            {selectedGame && (
+              <motion.div
+                key={selectedGame.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="leaderboard-game-details">
+                  <div className="game-details-ls">
+                    <div className="game-title">{selectedGame.title}</div>
+                    <div className="sbs">
+                      <DifficultyComponentStandalone game={selectedGame} />
+                      <AverageEscapeTime game={selectedGame} />
+                    </div>
+                    <RatingsContainer game={selectedGame} />
+                  </div>
+                  <div className="game-summary">
+                    <span className="game-detail-rs">
+                      {selectedGame.description}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

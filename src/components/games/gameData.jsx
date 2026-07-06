@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getGames } from "../../data/games";
+import "./gameList.css";
 
 export const GameData = ({ game }) => {
   if (!game) return null;
@@ -9,7 +10,8 @@ export const GameData = ({ game }) => {
       <div className="left-side-items">
         {" "}
         <div className="difficulty-container">
-          Difficulty: {game.difficulty === "N/A" ? "N/A" : `${game.difficulty} / 10`}
+          Difficulty:{" "}
+          {game.difficulty === "N/A" ? "N/A" : `${game.difficulty} / 10`}
         </div>
         <ul className="game-location-container">
           {game.locations.map((location) => (
@@ -21,6 +23,17 @@ export const GameData = ({ game }) => {
       </div>
 
       <div className="user-time-container">Best Time: ??:??</div>
+    </div>
+  );
+};
+
+export const DifficultyComponentStandalone = ({ game }) => {
+  if (!game) return null;
+
+  return (
+    <div className="sq-difficulty-container">
+      <span className="difficulty-rating">{game.difficulty === "N/A" ? "N/A" : `${game.difficulty} / 10`}</span>
+      <div className="difficulty-text">Difficulty</div>
     </div>
   );
 };

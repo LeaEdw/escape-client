@@ -5,9 +5,9 @@
 }
 
 .all-elements {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .embla__container {
@@ -19,7 +19,6 @@
   padding: 20px 0 0 40px;
   border-radius: 8px;
   margin-right: 0;
-  
 }
 
 .embla__slide {
@@ -39,50 +38,71 @@
 }
 
 .embla__container :last-child {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .game_title {
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .game_details {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .left-side-items {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .rating-container {
   display: flex;
   border: 2px solid #111111;
   border-radius: 15px;
-  padding: 30px;
-  font-weight: 900;
-  width: 450px;
+  /* padding: 30px; */
 }
 
 .rating-item {
-    display: flex;
-    padding: 10px;
-    margin: auto;
-    flex-direction: column
+  display: flex;
+  padding: 30px;
+  margin: auto;
+  flex-direction: column;
+  font-weight: 900;
+}
+
+.rating-text {
+  font-weight: 400;
 }
 
 .game-data-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 30px;
-    line-height: 3rem;
-
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  line-height: 3rem;
 }
 
-.difficulty-container, .user-time-container {
-    font-size: xx-large;
-    font-weight: bold;
+.difficulty-container,
+.user-time-container {
+  font-size: xx-large;
+  font-weight: bold;
 }
 
+.sq-difficulty-container,
+.average-time-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #111111;
+  width: 150px;
+  height: 150px;
+  border-radius: 25px;
+}
+
+.difficulty-rating,
+.average-time-label {
+  font-size: xx-large;
+  font-weight: bold;
+  padding-bottom: 15px;
+}

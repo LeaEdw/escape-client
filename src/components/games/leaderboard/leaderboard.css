@@ -9,13 +9,13 @@
 
 .leaderboard-embla__viewport {
   overflow: hidden;
-  height: 700px;
   /* overscroll-behavior: contain; */
 }
 
 .leaderboard-embla__container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
 }
 
 .leaderboard-embla__slide {
@@ -29,4 +29,63 @@
   object-fit: cover;
   border-radius: 15px;
   margin: 20px;
+}
+
+.leaderboard-carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  position: relative;
+}
+
+.leaderboard-game-details {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #111111;
+  border-radius: 25px;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px;
+  width: 800px;
+}
+
+.leaderboard-game-details > * {
+  padding: 20px;
+}
+
+.game-details-ls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #111111;
+  border-radius: 25px;
+  padding: 20px;
+  height: 500px;
+  overflow: auto;
+}
+.sbs {
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
+  /* margin: auto; */
+  /* width: fit-content; */
+}
+
+.game-title {
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 30px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  line-height: 1.1;
 }

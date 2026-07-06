@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Login } from "./pages/auth/login";
 import { Register } from "./pages/auth/register";
 import { Authorized } from "./views/authorized";
@@ -8,6 +8,7 @@ import "./App.css";
 
 export const App = () => {
   const [token, setTokenState] = useState(localStorage.getItem("escape_token"));
+  const [isLoading, setIsLoading] = useState(true);
 
   const setToken = (newToken) => {
     localStorage.setItem('escape_token', newToken)
