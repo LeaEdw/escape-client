@@ -10,7 +10,7 @@ export const UserProfile = () => {
   return (
     <>
       <HamburgerMenu />
-      <h1>User Profile</h1>
+      <UserProfile />
     </>
   );
 };

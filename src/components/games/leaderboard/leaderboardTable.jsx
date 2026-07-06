@@ -65,7 +65,7 @@ export const LeaderboardTable = ({ game }) => {
             </tr>
           ))}
           <tr className="leaderboard-my-rank-row">
-            <td>{myEntry ? myEntry.escape_time : "--:--"}</td>
+            <td>{myEntry ? myEntry.escape_time : "--:--:--"}</td>
             <td>My Personal Best</td>
             <td>{myRank}</td>
           </tr>

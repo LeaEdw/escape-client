@@ -47,7 +47,7 @@ export const GameData = ({ game }) => {
       </div>
 
       <div className="user-time-container">
-        Best Time: {myEntry ? myEntry.escape_time : "--:--"}
+        Personal Best: {myEntry ? myEntry.escape_time : "--:--:--"}
       </div>
     </div>
   );
