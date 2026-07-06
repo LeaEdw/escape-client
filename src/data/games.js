@@ -19,3 +19,4 @@ export function getGame(id) {
 export function getRatings(gameId) {
     return fetchWithResponse(`ratings?game=${gameId}`)
 }
+

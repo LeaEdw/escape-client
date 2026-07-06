@@ -1,9 +1,8 @@
-.comments {
-    position: relative;
-    width: 300px;
-    height: 500px;
-    margin-top: 50px;
-
+.comments-container {
+  position: relative;
+  width: 300px;
+  height: 500px;
+  margin-top: 50px;
 }
 
 .comment-tab {
@@ -25,27 +24,61 @@
   background-color: white;
   border-radius: 15px;
   padding: 30px;
-  font-weight: 900;
   position: relative;
   z-index: 2;
   width: 450px;
   height: 550px;
   top: 50px;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .comment-footer {
-    display: flex;
-    flex-direction: row;
-    padding: 15px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  justify-content: space-between;
 }
 
 .icon-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .icon {
-    padding: 0 10px 0 10px;
+  padding: 0 10px 0 10px;
+}
+
+.comment-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 25%;
+  object-fit: cover;
+}
+
+.comment-title,
+.comment-text {
+  text-align: left;
+}
+
+.comment-title {
+  font-weight: bold;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment-author {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  font-size: larger;
+}
+
+.comment-time {
+  padding-left: 20px;
+
+  font-size: medium;
+  color: rgb(160, 160, 160);
 }

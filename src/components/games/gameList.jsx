@@ -104,7 +104,7 @@ export const GameCarousel = () => {
 
       <div className="right-side-elements">
         <RatingsContainer game={selectedGame} />
-        <CommentSection />
+        <CommentSection game={selectedGame} />
       </div>
     </div>
   );
