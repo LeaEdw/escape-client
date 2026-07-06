@@ -6,6 +6,7 @@ import { getGames } from "../../data/games";
 import { RatingsContainer } from "./gameRating";
 import { GameData } from "./gameData";
 import { CommentSection } from "../user/comments";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const GameCarousel = () => {
   const [games, setGames] = useState([]);
@@ -39,12 +40,14 @@ export const GameCarousel = () => {
     emblaApi.on("select", onSelect);
     onSelect();
   }, [emblaApi, games]);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, [selectedGame]);
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
   const scrollNext = () => emblaApi && emblaApi.scrollNext();
-
-  //   const goToPrev = () => emblaApi && emblaApi?.goToPrev()
-  //   const goToNext = () => emblaApi && emblaApi?.goToNext()
 
   if (isLoading) return <p>Loading games...</p>;
   if (error) return <p>Something went wrong loading games</p>;
@@ -70,17 +73,6 @@ export const GameCarousel = () => {
                         className="w-full h-80 object-cover border mb-5"
                       />
                     )}
-                    {/* <div className="game-details">
-                    <div className="left-side-items">
-                      <div className="game-difficulty">
-                        Difficulty {game.difficulty} / 10
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {game.number_of_players} players
-                      </div>
-                    </div>
-                    <div className="right-side-items">Best Time:</div>
-                  </div> */}
                   </div>
                 );
               })}
@@ -90,15 +82,15 @@ export const GameCarousel = () => {
             onClick={scrollPrev}
             className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
           >
-            ‹
+            ←
           </button>
           <button
             onClick={scrollNext}
             className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
           >
-            ›
+            →
           </button>
-        </div>{" "}
+        </div>
         <GameData game={selectedGame} />
       </div>
 

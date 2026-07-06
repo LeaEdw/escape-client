@@ -10,13 +10,11 @@ const checkError = (res) => {
 };
 
 const checkErrorJson = async (res) => {
-  console.log("CHECK ERROR JSON - status:", res.status, "ok:", res.ok);
   if (res.ok) {
     if (res.status === 204) {
       return null;
     }
     const json = await res.json();
-    console.log("PARSED JSON:", json);
     return json;
   }
 
@@ -35,7 +33,6 @@ const checkErrorJson = async (res) => {
 };
 
 const catchError = (err) => {
-  console.log("CAUGHT ERROR:", err.message, err);
   if (err.message === "401") {
     if (typeof window !== "undefined") {
       window.location.href = "/login";

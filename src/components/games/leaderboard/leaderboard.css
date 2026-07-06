@@ -1,0 +1,158 @@
+.leaderboard-elements {
+  max-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  justify-content: center;
+}
+
+.leaderboard-right {
+  display: flex;
+  position: sticky;
+  align-self: flex-start;
+  height: 800px;
+}
+
+.embla {
+  --slide-size: 70%;
+  --slide-spacing-md-up: 20px;
+}
+
+.leaderboard-embla__viewport {
+  overflow: hidden;
+}
+
+.leaderboard-embla__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leaderboard-embla__slide {
+  display: flex;
+  flex-direction: row;
+}
+.game-image {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.leaderboard-carousel {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  position: relative;
+}
+
+.leaderboard-game-details {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #111111;
+  border-radius: 25px;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px;
+  width: 800px;
+}
+
+.leaderboard-game-details > * {
+  padding: 20px;
+  
+}
+
+.game-details-ls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  
+}
+
+.game-summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #111111;
+  border-radius: 25px;
+  padding: 20px;
+  height: 500px;
+  overflow: auto;
+}
+.sbs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.game-title {
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 30px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  line-height: 1.1;
+}
+
+.leaderboard-table {
+  width: 500px;
+  border-collapse: separate;
+  margin-top: 20px;
+  border: 2px solid #111111;
+  border-radius: 25px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  text-align: center;
+  padding: 10px 15px;
+  border-right: 1px solid #ddd;
+}
+
+.leaderboard-table th:last-child,
+.leaderboard-table td:last-child {
+  border-right: none;
+}
+
+.leaderboard-user {
+  display: flex;
+  gap: 10px;
+}
+
+.leaderboard-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leaderboard-empty {
+  font-style: italic;
+}
+.leaderboard-my-rank {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  margin-top: 10px;
+  border: 2px solid #111111;
+  border-radius: 15px;
+  font-weight: bold;
+  gap: 30px;
+}
+
+.leaderboard-table thead th {
+  border-bottom: 2px solid #111111;
+}
+
+.leaderboard-table .leaderboard-my-rank-row td {
+  border-top: 2px solid #111111;
+  font-weight: bold;
+}
+
+
