@@ -1,0 +1,73 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1900px;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 30px;
+  margin: auto;
+  width: 90%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* width: 400px;
+  height: 500px; */
+}
+
+.user-info > .button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 30px;
+  
+}
+
+.user-button {
+  border: 2px solid #111111;
+  border-radius: 20px;
+  width: 150px;
+  height: 40px;
+}
+
+.profile-img {
+  border: 2px solid #111111;
+  border-radius: 100%;
+  width: 400px;
+  height: 400px;
+}
+
+.game-badges {
+  display: flex;
+  border: 2px solid #111111;
+  width: 1200px;
+  height: 500px;
+  border-radius: 50px;
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 30px;
+  width: 100%;
+}
+
+.bottom-container > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #111111;
+  width: 350px;
+  height: 300px;
+  border-radius: 25px;
+}
