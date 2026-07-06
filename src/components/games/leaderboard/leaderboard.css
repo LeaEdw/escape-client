@@ -1,8 +1,16 @@
-.all-elements {
+.leaderboard-elements {
   max-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  justify-content: center;
+}
+
+.leaderboard-right {
+  display: flex;
+  position: sticky;
+  align-self: flex-start;
+  height: 800px;
 }
 
 .embla {
@@ -12,7 +20,6 @@
 
 .leaderboard-embla__viewport {
   overflow: hidden;
-  /* overscroll-behavior: contain; */
 }
 
 .leaderboard-embla__container {
@@ -54,12 +61,15 @@
 
 .leaderboard-game-details > * {
   padding: 20px;
+  
 }
 
 .game-details-ls {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 50%;
+  
 }
 
 .game-summary {
@@ -74,10 +84,7 @@
 }
 .sbs {
   display: flex;
-  /* flex-direction: row; */
-  justify-content: space-between;
-  /* margin: auto; */
-  /* width: fit-content; */
+  justify-content: space-around;
 }
 
 .game-title {
@@ -111,14 +118,10 @@
 .leaderboard-table th:last-child,
 .leaderboard-table td:last-child {
   border-right: none;
-  border-bottom: none;
 }
 
 .leaderboard-user {
   display: flex;
-  align-items: center;
-  text-align: center;
-
   gap: 10px;
 }
 
@@ -130,6 +133,26 @@
 }
 
 .leaderboard-empty {
-  color: #aaa;
   font-style: italic;
 }
+.leaderboard-my-rank {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  margin-top: 10px;
+  border: 2px solid #111111;
+  border-radius: 15px;
+  font-weight: bold;
+  gap: 30px;
+}
+
+.leaderboard-table thead th {
+  border-bottom: 2px solid #111111;
+}
+
+.leaderboard-table .leaderboard-my-rank-row td {
+  border-top: 2px solid #111111;
+  font-weight: bold;
+}
+
+

@@ -73,49 +73,48 @@ export const LeaderboardPage = () => {
   if (error) return <p>Something went wrong loading game details.</p>;
 
   return (
-    <div className="all-elements">
-        <div className="left-side-elements" key="left-side">
-          <div className="relative max-w-3xl mx-auto px-15 leaderboard-embla__container">
-            <div className="leaderboard-carousel">
-              <div
-                className="leaderboard-embla__viewport overflow-hidden"
-                ref={emblaRef}
-              >
-                <div className="leaderboard-embla__slide">
-                  {games.map((game) => {
-                    const primaryImage = game.images?.find(
-                      (img) => img.is_primary,
-                    );
+    <div className="leaderboard-elements">
+      <div className="left-side-elements" key="left-side">
+        <div className="relative max-w-3xl mx-auto px-15 leaderboard-embla__container">
+          <div className="leaderboard-carousel">
+            <div
+              className="leaderboard-embla__viewport overflow-hidden"
+              ref={emblaRef}
+            >
+              <div className="leaderboard-embla__slide">
+                {games.map((game) => {
+                  const primaryImage = game.images?.find(
+                    (img) => img.is_primary,
+                  );
 
-                    return (
-                      <div key={game.id} className="flex-none bg-white">
-                        {primaryImage && (
-                          <img
-                            src={`http://localhost:8000/media/${primaryImage.image_path}`}
-                            alt={game.title}
-                            className="game-image"
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                  return (
+                    <div key={game.id} className="flex-none bg-white">
+                      {primaryImage && (
+                        <img
+                          src={`http://localhost:8000/media/${primaryImage.image_path}`}
+                          alt={game.title}
+                          className="game-image"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <button
-                onClick={scrollPrev}
-                className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
-              >
-                ←
-              </button>
-              <button
-                onClick={scrollNext}
-                className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
-              >
-                →
-              </button>
             </div>
-      <AnimatePresence mode="wait">
-
+            <button
+              onClick={scrollPrev}
+              className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+            >
+              ←
+            </button>
+            <button
+              onClick={scrollNext}
+              className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+            >
+              →
+            </button>
+          </div>
+          <AnimatePresence mode="wait">
             {selectedGame && (
               <motion.div
                 key={selectedGame.id}
@@ -130,9 +129,9 @@ export const LeaderboardPage = () => {
                       <DifficultyComponentStandalone game={selectedGame} />
                       <AverageEscapeTime game={selectedGame} />
                     </div>
-                    <RatingsContainer game={selectedGame} />
+                    <RatingsContainer game={selectedGame}/>
                   </div>
-                  <div className="game-summary">
+                  <div className="game-summary solid-bg">
                     <span className="game-detail-rs">
                       {selectedGame.description}
                     </span>
@@ -140,15 +139,13 @@ export const LeaderboardPage = () => {
                 </div>
               </motion.div>
             )}
-                  </AnimatePresence>
-
-          </div>
+          </AnimatePresence>
         </div>
+      </div>
 
-
-          <div className="right-side-elements" key="right-side">
-            <LeaderboardTable game={selectedGame} />
-          </div>
+      <div className="leaderboard-right" key="right-side">
+        <LeaderboardTable game={selectedGame} />
+      </div>
     </div>
   );
 };
