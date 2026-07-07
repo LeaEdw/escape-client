@@ -34,6 +34,34 @@ export function getUserProfile() {
     headers: {
       Authorization: `Token ${localStorage.getItem('escape_token')}`,
     }
+  }).then((data) => {
+    console.log("PROFILE DATA:", data);
+    return data;
+  }).catch((err) => {
+    console.log("PROFILE ERROR:", err);
+    throw err;
+  });
+}
+
+export function updateProfile(data) {
+  return fetchWithResponse('profile', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${localStorage.getItem('escape_token')}`
+    },
+    body: JSON.stringify(data)
+  })
+}
+
+export function submitEscapeTime(gameId, escapeTime) {
+  return fetchWithResponse('escapetimes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${localStorage.getItem('escape_token')}`
+    },
+    body: JSON. stringify({game: gameId, escape_time: escapeTime})
   })
 }
 

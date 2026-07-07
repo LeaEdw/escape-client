@@ -43,3 +43,11 @@
   font-size: 1.5rem;
   color: white;
 }
+
+.badge-item.editable {
+  cursor: pointer;
+}
+
+.badge-item.editable:hover {
+  outline: 2px solid #4a90d9;
+}

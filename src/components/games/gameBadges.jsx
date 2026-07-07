@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
 import { getGames, getUserEscapeTime } from "../../data/games";
+import { TimeSubmitModal } from "../user/TimeSubmit";
 import lockIcon from "../../assets/lock.png"
 import "./gameBadges.css";
 
-export const GameBadges = ({ currentUser }) => {
+export const GameBadges = ({ currentUser, isEditing }) => {
   const [games, setGames] = useState([]);
   const [completeGameIds, setCompletedGameIds] = useState(new Set());
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedGame, setSelectedGame] = useState(null)
 
   useEffect(() => {
     getGames().then((data) => setGames(data || []));
   }, []);
 
-  useEffect(() => {
+  const refetchTimes = () => {
     if (!currentUser) return;
-    getUserEscapeTime(currentUser.id).then((data) => {
-      const approvedGameIds = (data || [])
-        .filter((entry) => entry.approval_status)
-        .map((entry) => entry.game);
-      setCompletedGameIds(new Set(approvedGameIds));
-      setIsLoading(false);
-    });
-  }, [currentUser?.id]);
+    getUserEscapeTime(currentUser.id).then((data) =>{
+        const approvedGameIds = (data || [])
+            .filter((entry) => entry.approval_status)
+            .map((entry) => entry.game)
+        setCompletedGameIds(new Set(approvedGameIds));
+        setIsLoading(false);
+    })
+  }
+
+  useEffect(() => {
+    refetchTimes();
+  }, [currentUser?.id])
 
   if (isLoading) return <p>Loading badges...</p>;
 
@@ -34,8 +40,9 @@ export const GameBadges = ({ currentUser }) => {
         return (
           <div
             key={game.id}
-            className={`badge-item ${isUnlocked ? "unlocked" : "locked"}`}
+            className={`badge-item ${isUnlocked ? "unlocked" : "locked"} ${isEditing ? "editable" : ""}`}
             title={game.title}
+            onClick={() => isEditing && setSelectedGame(game)}
           >
             {primaryImage && (
                 <img 
@@ -50,6 +57,13 @@ export const GameBadges = ({ currentUser }) => {
           </div>
         );
       })}
+
+      {selectedGame && (
+        <TimeSubmitModal
+            game={selectedGame}
+            onClose={() => setSelectedGame(null)}
+            onSubmitted={refetchTimes} />
+      )}
     </div>
   );
 };

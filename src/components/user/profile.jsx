@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import "./profile.css";
 import { getUserEscapeTime, getGames } from "../../data/games";
-import { getUserProfile } from "../../data/auth";
+import { updateProfile, getUserProfile } from "../../data/auth";
 import { GameBadges } from "../games/gameBadges";
 
 export const UserProfileComponent = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [bestTime, setBestTime] = useState(null);
-  const [games, setGames] = useState([])
+  const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [editedAboutMe, setEditedAboutMe] = useState("");
+  const [editedFavoriteGameId, setEditedFavoriteGameId] = useState("");
+  const [editedWantsToPlayId, setEditedWantsToPlayId] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     getUserProfile().then((user) => {
@@ -18,8 +24,8 @@ export const UserProfileComponent = () => {
   }, []);
 
   useEffect(() => {
-    getGames().then((data) => setGames(data || []))
-  }, [])
+    getGames().then((data) => setGames(data || []));
+  }, []);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -36,29 +42,115 @@ export const UserProfileComponent = () => {
     });
   }, [currentUser?.id]);
 
+
   if (isLoading) return <p>Loading profile...</p>;
   if (!currentUser) return <p>Unable to load profile</p>;
 
-  const bestTimeGame = bestTime ? games.find((g) => g.id === bestTime.game) : null;
+  const startEditing = () => {
+  setEditedAboutMe(currentUser.about_me || "");
+  setEditedFavoriteGameId(
+    currentUser.favorite_game ? currentUser.favorite_game.id : "",
+  );
+  setEditedWantsToPlayId(
+    currentUser.wants_to_play_next ? currentUser.wants_to_play_next.id : "",
+  );
+  setIsEditing(true);
+};
+
+const cancelEditing = () => {
+  setIsEditing(false);
+};
+
+const saveChanges = () => {
+  setIsSaving(true);
+  const payload = {
+    about_me: editedAboutMe,
+    favorite_game_id: editedFavoriteGameId || null,
+    wants_to_play_next_id: editedWantsToPlayId || null,
+  };
+  updateProfile(payload)
+    .then((updatedUser) => {
+      setCurrentUser(updatedUser);
+      setIsEditing(false);
+      setIsSaving(false);
+    })
+    .catch(() => setIsSaving(false));
+};
+
+const bestTimeGame = bestTime
+  ? games.find((g) => g.id === bestTime.game)
+  : null;
+
 
   return (
     <div className="profile-container">
       <div className="top-container">
-        <div className="game-badges"><GameBadges currentUser={currentUser}/></div>
-        <div className="user-info">
-          <img src={currentUser.profile_image} alt={currentUser.username} className="profile-img"/>
+        <div className="game-badges">
+          <GameBadges currentUser={currentUser} isEditing={isEditing} />
+        </div>
+        <div className="profile-info">
+          <img
+            src={currentUser.profile_image}
+            alt={currentUser.username}
+            className="profile-img"
+          />
           <div className="button-container">
             <button className="user-button">{currentUser.username}</button>
-            <button className="user-button">Edit Profile</button>
+            {isEditing ? (
+              <>
+                <button
+                  className="user-button"
+                  onClick={saveChanges}
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Saving..." : "Save"}
+                </button>
+                <button
+                  className="user-button"
+                  onClick={cancelEditing}
+                  disabled={isSaving}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button className="user-button" onClick={startEditing}>
+                Edit Profile
+              </button>
+            )}
           </div>
         </div>
       </div>
       <div className="bottom-container">
-        <div className="about-me">{currentUser.about_me || "No bio yet."}</div>
+        <div className="about-me">
+          {isEditing ? (
+            <textarea
+              value={editedAboutMe}
+              onChange={(e) => setEditedAboutMe(e.target.value)}
+              placeholder="Tell others about yourself"
+              rows={4}
+            />
+          ) : (
+            currentUser.about_me || "No bio yet"
+          )}
+        </div>
         <div className="favorite-game">
-          {currentUser.favorite_game
-            ? currentUser.favorite_game.title
-            : "Favorite Game: ???"}
+          {isEditing ? (
+            <select
+              value={editedFavoriteGameId}
+              onChange={(e) => setEditedFavoriteGameId(e.target.value)}
+            >
+              <option value="">Favorite Game: none selected</option>
+              {games.map((game)=> (<option key={game.id} value={game.id}>
+                {game.title}
+              </option>)) }
+              
+            </select>
+          ) : currentUser.favorite_game ? (
+            currentUser.favorite_game.title
+          ) : (
+            "Favorite Game: ???"
+          )}
         </div>
         <div className="best-time">
           Best Time: {bestTime ? bestTime.escape_time : "--:--:--"}
@@ -66,9 +158,23 @@ export const UserProfileComponent = () => {
         </div>
         <div className="wish-item">
           Wants to play next:
-          {currentUser.wants_to_play_next
-            ? currentUser.wants_to_play_next.title
-            : "TBD"}
+          {isEditing ? (
+            <select
+              value={editedWantsToPlayId}
+              onChange={(e) => setEditedWantsToPlayId(e.target.value)}
+            >
+              <option value="" className="wishlist-text">Wants to play next: none selected</option>
+              {games.map((game)=> (<option key={game.id} value={game.id}>
+                {game.title}
+              </option>)) }
+            </select>
+          ) : (
+            <div className="wishlist-game">
+              {currentUser.wants_to_play_next
+                ? currentUser.wants_to_play_next.title
+                : "TBD"}
+            </div>
+          )}
         </div>
       </div>
     </div>
