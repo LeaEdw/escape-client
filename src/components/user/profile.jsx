@@ -46,7 +46,7 @@ export const UserProfileComponent = () => {
       <div className="top-container">
         <div className="game-badges"><GameBadges currentUser={currentUser}/></div>
         <div className="user-info">
-          <div className="profile-img">Profile Image</div>
+          <img src={currentUser.profile_image} alt={currentUser.username} className="profile-img"/>
           <div className="button-container">
             <button className="user-button">{currentUser.username}</button>
             <button className="user-button">Edit Profile</button>

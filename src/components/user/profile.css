@@ -39,15 +39,16 @@
 }
 
 .profile-img {
-  border: 2px solid #111111;
+  border: 15px solid #bbbbbb;
   border-radius: 100%;
   width: 400px;
   height: 400px;
+  object-fit: cover;
 }
 
 .game-badges {
   display: flex;
-  border: 2px solid #111111;
+  border: 1px solid #111111;
   width: 1200px;
   height: 500px;
   border-radius: 50px;
