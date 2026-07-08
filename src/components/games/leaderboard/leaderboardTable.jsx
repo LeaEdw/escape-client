@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getLeaderboard, getGames } from "../../../data/games";
 import { getUserProfile } from "../../../data/auth";
+import { confirmVisitProfile } from "../../user/profileNavigator";
+
 import "./leaderboard.css";
 
 export const LeaderboardTable = ({ game }) => {
+  const navigate = useNavigate();
   const [times, setTimes] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,14 +53,24 @@ export const LeaderboardTable = ({ game }) => {
               <td>{game ? game.escape_time : "--:--"}</td>
               <td className="leaderboard-user">
                 {game ? (
-                  <>
+                  <div
+                    className="user-line"
+                    className="user-info"
+                    onClick={() =>
+                      confirmVisitProfile(
+                        navigate,
+                        game.user.id,
+                        game.user.username,
+                      )
+                    }
+                  >
                     <img
                       src={game.user.profile_image}
                       alt={game.user.username}
                       className="leaderboard-avatar"
                     />
                     <span className="rank-username">{game.user.username}</span>
-                  </>
+                  </div>
                 ) : (
                   <span className="leaderboard-empty">—</span>
                 )}

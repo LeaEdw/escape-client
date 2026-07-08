@@ -25,6 +25,7 @@ export const ApplicationViews = () => {
            <Route path="/edit_game" element={<EditGameFrom />} />
            <Route path="/leaderboard" element={<LeaderBoard />} />
            <Route path="/profile" element={<UserProfile />} />
+           <Route path="/users/:userId" element={<UserProfile />} />
         </Route>
       </Routes>
     </>

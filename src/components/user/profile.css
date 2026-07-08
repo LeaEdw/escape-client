@@ -7,9 +7,7 @@
 
 .top-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  padding-top: 30px;
   margin: auto;
   width: 90%;
 }
@@ -23,12 +21,23 @@
   height: 500px; */
 }
 
-.user-info > .button-container {
+/* .user-info > .button-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   padding-top: 30px;
-  
+} */
+
+
+user-profile-container {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  padding: 20px;
+  justify-content: center;
+}
+
+user-profile-container > * {
+    margin: 30px;
 }
 
 .user-button {
@@ -73,51 +82,22 @@
   border-radius: 25px;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.wishlist-text {
+  font-weight: bolder;
 }
 
-.modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  min-width: 300px;
-}
-
-.time-inputs {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.time-inputs input {
-  width: 60px;
-  padding: 8px;
+select {
   text-align: center;
 }
 
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 15px;
+.about-me {
+  width: 350px;
+  height: 300px;
+  padding: 30px;
 }
 
-.modal-error {
-  color: #b91c1c;
-}
-
-.badge-item.editable {
-  cursor: pointer;
-}
-
-.wishlist-game {
-    font-weight: bolder;
+.about-me > textarea {
+  width: 350px;
+  height: 300px;
+  padding: 30px;
 }

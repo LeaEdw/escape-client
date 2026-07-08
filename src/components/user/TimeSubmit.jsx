@@ -39,7 +39,7 @@ export const TimeSubmitModal = ({ game, onClose, onSubmitted }) => {
   };
   return <div className="modal-overlay" onClick={onClose}>
     <div className="modal-content" onClick={(event) => event.stopPropagation()}>
-        <h3>Submit Time for {game.title}</h3>
+        <h3>Submit Time for: <strong>{game.title}</strong></h3>
         <div className="time-inputs">
           <input
             type="number"
@@ -47,6 +47,7 @@ export const TimeSubmitModal = ({ game, onClose, onSubmitted }) => {
             max="59"
             placeholder="MM"
             value={minutes}
+            className="number-input"
             onChange={(e) => setMinutes(e.target.value)}
           />
           <span>:</span>
@@ -56,16 +57,19 @@ export const TimeSubmitModal = ({ game, onClose, onSubmitted }) => {
             max="59"
             placeholder="SS"
             value={seconds}
+            className="number-input"
             onChange={(e) => setSeconds(e.target.value)}
           />
         </div>
         {error && <p className="modal-error">{error}</p>}
         <div className="modal-actions">
-          <button onClick={onClose} disabled={isSubmitting}>Cancel</button>
-          <button onClick={handleSubmit} disabled={isSubmitting}>
+          <button className="modal-button cancel-button" onClick={onClose} disabled={isSubmitting}  >Cancel</button>
+          <button className="modal-button save-button" onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
     </div>
   </div>;
 };
+
+
