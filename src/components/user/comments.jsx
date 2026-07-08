@@ -1,6 +1,8 @@
 import "./comments.css";
 // all other imports
 import { getGames } from "../../data/games";
+import { useNavigate } from "react-router-dom";
+import { confirmVisitProfile } from "./profileNavigator";
 
 const getTimePosted = (createdAt) => {
   const now = new Date();
@@ -27,6 +29,8 @@ const getTimePosted = (createdAt) => {
 };
 
 export const CommentSection = ({ game }) => {
+  const navigate = useNavigate();
+
   if (!game) return null;
   return (
     <div className="comments-container">
@@ -39,7 +43,16 @@ export const CommentSection = ({ game }) => {
         ) : (
           game.comments.map((comment) => (
             <div key={comment.id} className="comment-item">
-              <div className="user-info">
+              <div
+                className="user-info"
+                onClick={() =>
+                  confirmVisitProfile(
+                    navigate,
+                    comment.user.id,
+                    comment.user.username,
+                  )
+                }
+              >
                 <img
                   src={comment.user.profile_image}
                   alt={comment.user.username}
@@ -47,9 +60,9 @@ export const CommentSection = ({ game }) => {
                 />
 
                 <p className="comment-author">
-                  {comment.user.username}   
+                  {comment.user.username}
                   <span className="comment-time">
-                     {getTimePosted(comment.created_at)}
+                    {getTimePosted(comment.created_at)}
                   </span>
                 </p>
               </div>

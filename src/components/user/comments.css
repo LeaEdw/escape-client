@@ -68,19 +68,29 @@
 
 .user-info {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 25%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .comment-author {
   display: flex;
-  flex-direction: row;
-  padding-left: 20px;
-  font-size: larger;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
 }
 
 .comment-time {
   padding-left: 20px;
 
-  font-size: medium;
+  font-size: 0.85rem;
   color: rgb(160, 160, 160);
 }

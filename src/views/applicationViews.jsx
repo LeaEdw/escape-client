@@ -3,8 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "../pages/user/home";
 import { NewGameForm } from "../pages/admin/newGame"
 import { EditGameFrom } from "../pages/admin/editGame";
-import { UserProfile } from "../pages/user/userProfile";
 import { LeaderBoard } from "../pages/user/leaderboard";
+import { UserProfile } from "../pages/user/userProfile"
 
 
 export const ApplicationViews = () => {
@@ -25,6 +25,7 @@ export const ApplicationViews = () => {
            <Route path="/edit_game" element={<EditGameFrom />} />
            <Route path="/leaderboard" element={<LeaderBoard />} />
            <Route path="/profile" element={<UserProfile />} />
+           <Route path="/users/:userId" element={<UserProfile />} />
         </Route>
       </Routes>
     </>

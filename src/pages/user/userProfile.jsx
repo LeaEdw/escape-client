@@ -1,6 +1,7 @@
 // CSS Imports
 
 import { HamburgerMenu } from "../../components/navbar/navbar";
+import { UserProfileComponent} from "../../components/user/profile"
 
 // JSX Imports
 
@@ -10,7 +11,7 @@ export const UserProfile = () => {
   return (
     <>
       <HamburgerMenu />
-      <UserProfile />
+      <UserProfileComponent />
     </>
   );
 };

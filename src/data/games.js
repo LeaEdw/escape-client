@@ -35,3 +35,11 @@ export function getMyTime(gameId) {
         }
     })
 }
+
+export function getUserEscapeTime(userId) {
+    return fetchWithResponse(`escapetimes?user=${userId}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem('escape_token')}`
+        }
+    })
+}

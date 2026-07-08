@@ -1,0 +1,66 @@
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+}
+
+.modal-content {
+  background: white;
+  justify-content: center;
+  padding: 30px;
+  border-radius: 15px;
+  min-width: 350px;
+}
+
+.time-inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.time-inputs input {
+  width: fit-content;
+  padding: 8px;
+  text-align: center;
+
+  
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.modal-button {
+    display: flex;
+    margin: auto
+}
+
+.modal-error {
+  color: #b91c1c;
+}
+
+.badge-item.editable {
+  cursor: pointer;
+}
+
+.number-input {
+    display: flex;
+}
+
+.cancel-button {
+    color:#b91c1c
+}
+
+.save-button {
+    color: rgb(51, 146, 62)
+}

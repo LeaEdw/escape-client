@@ -1,20 +1,203 @@
-export const UserProfile = () => {
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "./profile.css";
+import { getUserEscapeTime, getGames } from "../../data/games";
+import { updateProfile, getUserProfile, getUserById } from "../../data/auth";
+import { GameBadges } from "../games/gameBadges";
+
+export const UserProfileComponent = () => {
+  const { userId } = useParams();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [bestTime, setBestTime] = useState(null);
+  const [games, setGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const [editedAboutMe, setEditedAboutMe] = useState("");
+  const [editedFavoriteGameId, setEditedFavoriteGameId] = useState("");
+  const [editedWantsToPlayId, setEditedWantsToPlayId] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    getUserProfile().then(setLoggedInUser);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchProfile = userId ? getUserById(userId) : getUserProfile();
+    fetchProfile.then((user) => {
+      setCurrentUser(user);
+      setIsLoading(false);
+    })
+  }, [userId])
+
+  useEffect(() => {
+    getGames().then((data) => setGames(data || []));
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    getUserEscapeTime(currentUser.id).then((data) => {
+      const approvedTimes = (data || []).filter((t) => t.approval_status);
+      if (approvedTimes.length === 0) {
+        setBestTime(null);
+        return;
+      }
+      const fastest = approvedTimes.reduce((best, entry) =>
+        entry.escape_time < best.escape_time ? entry : best,
+      );
+      setBestTime(fastest);
+    });
+  }, [currentUser?.id]);
+
+  if (isLoading) return <p>Loading profile...</p>;
+  if (!currentUser) return <p>Unable to load profile</p>;
+
+  const isOwnProfile = loggedInUser && loggedInUser.id === currentUser.id
+  const showEditingUI = isOwnProfile && isEditing
+
+  const startEditing = () => {
+    setEditedAboutMe(currentUser.about_me || "");
+    setEditedFavoriteGameId(
+      currentUser.favorite_game ? currentUser.favorite_game.id : "",
+    );
+    setEditedWantsToPlayId(
+      currentUser.wants_to_play_next ? currentUser.wants_to_play_next.id : "",
+    );
+    setIsEditing(true);
+  };
+
+  const cancelEditing = () => {
+    setIsEditing(false);
+  };
+
+  const saveChanges = () => {
+    setIsSaving(true);
+    const payload = {
+      about_me: editedAboutMe,
+      favorite_game_id: editedFavoriteGameId || null,
+      wants_to_play_next_id: editedWantsToPlayId || null,
+    };
+    updateProfile(payload)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        setIsEditing(false);
+        setIsSaving(false);
+      })
+      .catch(() => setIsSaving(false));
+  };
+
+  const bestTimeGame = bestTime
+    ? games.find((g) => g.id === bestTime.game)
+    : null;
+
   return (
-    <>
+    <div className="profile-container">
       <div className="top-container">
-        <div className="game-badges"></div>
-        <div className="user-info">
-            <div>Profile Image</div>
-            <div>Username</div>
-            <div>Edit Profile</div>
+        <div className="game-badges">
+          <GameBadges currentUser={currentUser} isEditing={isEditing} />
+        </div>
+        <div className="user-profile-container">
+          <img
+            src={currentUser.profile_image}
+            alt={currentUser.username}
+            className="profile-img"
+          />
+          <div className="button-container">
+            <button className="user-button">{currentUser.username}</button>
+            {isOwnProfile && (isEditing ? (
+              <>
+                <button
+                  className="user-button"
+                  onClick={saveChanges}
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Saving..." : "Save"}
+                </button>
+                <button
+                  className="user-button"
+                  onClick={cancelEditing}
+                  disabled={isSaving}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button className="user-button" onClick={startEditing}>
+                Edit Profile
+              </button>
+            )
+            )}
+          </div>
         </div>
       </div>
       <div className="bottom-container">
-        <div className="about-me"></div>
-        <div className="favorite-game"></div>
-        <div className="best-time"></div>
-        <div className="wish-item"></div>
+        <div className="about-me">
+          {showEditingUI ? (
+            <textarea
+              value={editedAboutMe}
+              onChange={(e) => setEditedAboutMe(e.target.value)}
+              placeholder="Tell others about yourself"
+              rows={10}
+            />
+          ) : (
+            currentUser.about_me || "No bio yet"
+          )}
+        </div>
+        <div className="favorite-game">
+          <strong>Favorite Game:</strong>
+          {isEditing ? (
+            <select
+              value={editedFavoriteGameId}
+              onChange={(e) => setEditedFavoriteGameId(e.target.value)}
+            >
+              <option value="">Favorite Game: none selected</option>
+              {games.map((game) => (
+                <option key={game.id} value={game.id}>
+                  {game.title}
+                </option>
+              ))}
+            </select>
+          ) : currentUser.favorite_game ? (
+            currentUser.favorite_game.title
+          ) : (
+            "Favorite Game: ???"
+          )}
+        </div>
+        <div>
+          <div className="best-time">
+            <strong>Best Time:</strong>
+          </div>
+          <div>{bestTime ? bestTime.escape_time : "--:--:--"}</div>
+          <div>{bestTimeGame && `${bestTimeGame.title}`}</div>
+        </div>
+
+        <div className="wish-item">
+          <strong>Wants to play next:</strong>
+          {isEditing ? (
+            <select
+              value={editedWantsToPlayId}
+              onChange={(e) => setEditedWantsToPlayId(e.target.value)}
+            >
+              <option value="" className="wishlist-text">
+                Wants to play next: none selected
+              </option>
+              {games.map((game) => (
+                <option key={game.id} value={game.id}>
+                  {game.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <div className="wishlist-game">
+              {currentUser.wants_to_play_next
+                ? currentUser.wants_to_play_next.title
+                : "TBD"}
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
