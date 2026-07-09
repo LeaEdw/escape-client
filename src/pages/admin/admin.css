@@ -1,0 +1,96 @@
+.embla {
+  --slide-size: 70%;
+  --slide-spacing: 10px;
+  --slide-spacing-md-up: 20px;
+}
+
+.all-elements_admin {
+  display: flex;
+  justify-content: center;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px 0 0 40px;
+  border-radius: 8px;
+  margin-right: 0;
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+@media (min-width: 768px) {
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-md-up) * -1);
+  }
+
+  .embla__slide {
+    padding-left: var(--slide-spacing-md-up);
+  }
+}
+
+.embla__container :last-child {
+  margin-right: 1rem;
+}
+
+.game_title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* .game_details {
+  display: flex;
+  flex-direction: row;
+} */
+
+.left-side-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-file > * {
+  display: flex;
+  border: 2px solid black;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+description-container {
+    border: 2px solid black;
+  border-radius: 25px;
+
+}
+
+
+.locations-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  border: 2px solid black;
+  border-radius: 25px;
+  margin: auto;
+  padding: 20px;
+}
+
+.input-bar {
+  border: 1px solid black;
+  border-radius: 20px;
+  width: fit-content;
+  text-align: center;
+  padding: 10px;
+}
+
+.sbs-inputs {
+  display: flex;
+gap: 20px;
+width: 500px;
+}

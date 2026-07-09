@@ -21,7 +21,7 @@ export const Login = ({onLogin}) => {
     login(user).then(res => {
       if (res.token) {
         setToken(res.token)
-        localStorage.setItem("is_admin", false)
+        localStorage.setItem("is_admin", res.is_admin)
         navigate("/home")
       } else {
         setIsUnsuccessful(true)

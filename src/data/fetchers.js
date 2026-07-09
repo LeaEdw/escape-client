@@ -44,9 +44,10 @@ const catchError = (err) => {
 
 export const fetchWithResponse = (resource, options = {}) => {
   const token = getToken();
+  const isFormData = options.body instanceof FormData;
 
   const headers = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : {"Content-Type": "application/json"}),
     ...(token ? { Authorization: `Token ${token}` } : {}),
     ...options.headers,
   };
@@ -58,9 +59,10 @@ export const fetchWithResponse = (resource, options = {}) => {
 
 export const fetchWithoutResponse = (resource, options = {}) => {
   const token = getToken();
+  const isFormData = options.body instanceof FormData;
 
   const headers = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : {"Content-Type": "application/json"}),
     ...(token ? { Authorization: `Token ${token}` } : {}),
     ...options.headers,
   };

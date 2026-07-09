@@ -5,10 +5,11 @@ import { removeToken } from "../../data/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faHouse, faTrophy, faUser } from "@fortawesome/free-solid-svg-icons";
 
-// This should be able to be ported into various pages that have the go back button ( in theory )
+// This should be able to be ported into various pages that have the go back button 
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const isAdmin = localStorage.getItem("is_admin") === "true";
 
   const handleLogout = () => {
     removeToken();
@@ -32,7 +33,7 @@ export const HamburgerMenu = () => {
             aria-label="Toggle menu"
           >
             <FontAwesomeIcon icon={isOpen ? faXmark : faBars} style={{ color: "black" }} />
-          </button>{" "}
+          </button>
           <span className="navbar-brand">Escape Game Social</span>
         </div>
         {isOpen && (
@@ -44,12 +45,19 @@ export const HamburgerMenu = () => {
             <button onClick={() => handleNav("/leaderboard")}>
               <FontAwesomeIcon icon={faTrophy} />
               <span className="menu-item-text">Leaderboard</span> 
-            </button>{" "}
+            </button>
             <hr />
             <button onClick={() => handleNav("/profile")}>
               <FontAwesomeIcon icon={faUser} />
               <span className="menu-item-text">Profile</span> 
             </button>
+            { isAdmin && (
+              <>
+              <hr />
+              <button onClick={() => handleNav("/new_game")}>New Game</button>
+              <button onClick={() => handleNav("/edit_game/1")}>Manage Games</button>
+              </>
+            )}
             <hr />
             <button className="logout-btn" onClick={handleLogout}>
               Logout
