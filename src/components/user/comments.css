@@ -94,3 +94,28 @@
   font-size: 0.85rem;
   color: rgb(160, 160, 160);
 }
+
+.comment-blurred {
+  filter: blur(6px);
+  user-select: none;
+}
+
+.comment-area {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #111111;
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  position: relative;
+  z-index: 2;
+  width: 450px;
+  height: 550px;
+  top: 50px;
+}
+
+.comment-list {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
