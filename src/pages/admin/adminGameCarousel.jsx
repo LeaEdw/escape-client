@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
-import { getGames } from "../../data/games";
+import { getAllGamesForAdmin } from "../../data/admin";
 import { motion, AnimatePresence } from "framer-motion";
 import { confirmEditGame } from "./editGameNavigation";
 
-export const AdminGameCarousel = () => {
+export const AdminGameCarousel = ({isUnsaved, refreshTrigger}) => {
   const navigate = useNavigate();
 
   const [games, setGames] = useState([]);
@@ -19,7 +19,7 @@ export const AdminGameCarousel = () => {
   const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
-    getGames()
+    getAllGamesForAdmin()
       .then((data) => {
         setGames(data);
         setIsLoading(false);
@@ -28,7 +28,7 @@ export const AdminGameCarousel = () => {
         setError(err);
         setIsLoading(false);
       });
-  }, []);
+  }, [refreshTrigger]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -62,7 +62,7 @@ export const AdminGameCarousel = () => {
                 const primaryImage = game.images?.find((img) => img.is_primary);
 
                 return (
-                  <div key={game.id} className="slide_admin flex-none bg-white">
+                  <div key={game.id} className={`slide_admin flex-none bg-white ${!game.active_status ? "opacity-40 grayscale" : ""}`}>
                     {primaryImage && (
                       <img
                         src={`http://localhost:8000/media/${primaryImage.image_path}`}
@@ -72,7 +72,8 @@ export const AdminGameCarousel = () => {
                             confirmEditGame(
                                 navigate,
                                 game.id,
-                                game.title
+                                game.title,
+                                isUnsaved
                             )
                         }}
                       />

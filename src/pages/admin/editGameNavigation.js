@@ -1,6 +1,9 @@
-export const confirmEditGame = (navigate, gameId, title) => {
-  const confirmed = window.confirm(`Edit "${title}"?`);
-  if (confirmed) {
-    navigate(`/edit_game/${gameId}`);
+export const confirmEditGame = (navigate, gameId, gameTitle, isUnsaved) => {
+  if (isUnsaved) {
+    const confirmed = window.confirm(
+      `You have unsaved changes. Leaving now will lose them. Continue to "${gameTitle}"?`,
+    );
+    if (!confirmed) return;
   }
+  navigate(`/edit_game/${gameId}`);
 };

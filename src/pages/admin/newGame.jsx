@@ -3,7 +3,7 @@ import "./admin.css";
 // JSX Imports
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createGame, getLocations } from "../../data/admin";
+import { createGame, getLocations, uploadGameImage } from "../../data/admin";
 import { AdminGameCarousel } from "./adminGameCarousel";
 import { HamburgerMenu } from "../../components/navbar/navbar";
 
@@ -18,6 +18,7 @@ export const NewGameForm = () => {
   const [ageRecommendation, setAgeRecommendation] = useState("");
   const [locations, setLocations] = useState([]);
   const [selectedLocationIds, setSelectedLocationIds] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,6 +47,11 @@ export const NewGameForm = () => {
       active_status: true,
       location_ids: selectedLocationIds,
     })
+      .then((newGame) =>
+        imageFile
+          ? uploadGameImage(newGame.id, imageFile, true).then(() => newGame)
+          : newGame,
+      )
       .then((newGame) => {
         navigate(`/edit_game/${newGame.id}`);
       })
@@ -70,16 +76,16 @@ export const NewGameForm = () => {
             required
             placeholder="Title"
           ></input>
-<div className="description-container"><textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description..."
-            required
-          ></textarea></div>
-          
+          <div className="description-container">
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Description..."
+              required
+            ></textarea>
+          </div>
 
           <div className="sbs-inputs">
-
             <input
               className="input-bar difficulty"
               value={difficulty}
@@ -116,6 +122,16 @@ export const NewGameForm = () => {
               </label>
             ))}
           </fieldset>
+          <div className="image-upload-container">
+            <label for="game-image">
+              <input
+                id="game-image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files[0] || null)}
+              />
+            </label>
+          </div>
           {error && <p className="form-error">{error}</p>}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Creating" : "Create Game"}

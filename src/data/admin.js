@@ -1,7 +1,15 @@
 import { fetchWithResponse } from "./fetchers";
 
 export function getAllGamesForAdmin() {
-  return fetchWithResponse("games?include_archived=true", {
+  return fetchWithResponse(`games?include_archived=true`, {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("escape_token")}`,
+    },
+  });
+}
+
+export function getGameForAdmin(gameId) {
+  return fetchWithResponse(`games/${gameId}?include_archived=true`, {
     headers: {
       Authorization: `Token ${localStorage.getItem("escape_token")}`,
     },
@@ -20,7 +28,7 @@ export function createGame(gameData) {
 }
 
 export function updateGame(gameData) {
-  return fetchWithResponse(`games/${gameId}`, {
+  return fetchWithResponse(`games/${gameData.id}?include_archived=true`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -30,12 +38,26 @@ export function updateGame(gameData) {
   });
 }
 
+export function uploadGameImage(gameId, file, isPrimary = false) {
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("is_primary", isPrimary);
+
+    return fetchWithResponse(`games/${gameId}/upload_image`, {
+        method: "POST",
+        headers: {
+            Authorization: `Token ${localStorage.getItem("escape_token")}`
+        },
+        body: formData,
+    })
+}
+
 export function archiveGame(gameId) {
-  return updateGame(gameId, { active_status: false });
+  return updateGame({ id: gameId, active_status: false });
 }
 
 export function unarchiveGame(gameId) {
-  return updateGame(gameId, { active_status: true });
+  return updateGame({ id: gameId, active_status: true });
 }
 
 export function getLocations() {
