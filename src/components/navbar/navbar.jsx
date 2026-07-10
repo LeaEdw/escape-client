@@ -3,9 +3,15 @@ import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { removeToken } from "../../data/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faHouse, faTrophy, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faXmark,
+  faHouse,
+  faTrophy,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
-// This should be able to be ported into various pages that have the go back button 
+// This should be able to be ported into various pages that have the go back button
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -32,30 +38,44 @@ export const HamburgerMenu = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            <FontAwesomeIcon icon={isOpen ? faXmark : faBars} style={{ color: "black" }} />
+            <FontAwesomeIcon
+              icon={isOpen ? faXmark : faBars}
+              style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+            />
           </button>
           <span className="navbar-brand">Escape Game Social</span>
         </div>
         {isOpen && (
           <div className="dropdown-menu">
             <button onClick={() => handleNav("/home")}>
-              <FontAwesomeIcon icon={faHouse} />
-             <span className="menu-item-text">Home</span> 
+              <FontAwesomeIcon
+                icon={faHouse}
+                style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+              />
+              <span className="menu-item-text">Home</span>
             </button>
             <button onClick={() => handleNav("/leaderboard")}>
-              <FontAwesomeIcon icon={faTrophy} />
-              <span className="menu-item-text">Leaderboard</span> 
+              <FontAwesomeIcon
+                icon={faTrophy}
+                style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+              />
+              <span className="menu-item-text">Leaderboard</span>
             </button>
             <hr />
             <button onClick={() => handleNav("/profile")}>
-              <FontAwesomeIcon icon={faUser} />
-              <span className="menu-item-text">Profile</span> 
+              <FontAwesomeIcon
+                icon={faUser}
+                style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+              />
+              <span className="menu-item-text">Profile</span>
             </button>
-            { isAdmin && (
+            {isAdmin && (
               <>
-              <hr />
-              <button onClick={() => handleNav("/new_game")}>New Game</button>
-              <button onClick={() => handleNav("/edit_game/1")}>Manage Games</button>
+                <hr />
+                <button onClick={() => handleNav("/new_game")} style={{ color: "light-dark(#6b6375, #9ca3af)" }}>New Game</button>
+                <button onClick={() => handleNav("/edit_game/1")} style={{ color: "light-dark(#6b6375, #9ca3af)" }}>
+                  Manage Games
+                </button>
               </>
             )}
             <hr />

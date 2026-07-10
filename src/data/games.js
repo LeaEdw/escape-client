@@ -43,3 +43,21 @@ export function getUserEscapeTime(userId) {
         }
     })
 }
+
+export function getComments(gameId) {
+    return fetchWithResponse(`comments?game=${gameId}`, {
+        headers: {
+            Authorization: `Token ${localStorage.getItem('escape_token')}`
+        }
+    })
+}
+
+export function createComment(commentData) {
+    return fetchWithResponse('comments', {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${localStorage.getItem('escape_token')}`
+        },
+        body: JSON.stringify(commentData)
+    })
+}

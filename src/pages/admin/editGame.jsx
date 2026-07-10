@@ -31,7 +31,7 @@ export const EditGameFrom = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isUnsaved, setIsUnsaved] = useState(false);
   const [saveStatus, setSaveStatus] = useState("idle");
-  const [refreshTrigger, setRefreshTrigger ] = useState(0)
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -95,72 +95,85 @@ export const EditGameFrom = () => {
 
   const handleArchiveToggle = () => {
     const action = game.active_status ? archiveGame : unarchiveGame;
-    action(gameId).then((updated) => {setGame(updated); setRefreshTrigger((prev) => prev + 1)});
+    action(gameId).then((updated) => {
+      setGame(updated);
+      setRefreshTrigger((prev) => prev + 1);
+    });
   };
 
   return (
     <>
       <HamburgerMenu />
       <div className="admin-carousel">
-        <AdminGameCarousel isUnsaved={isUnsaved} refreshTrigger={refreshTrigger} />
+        <AdminGameCarousel
+          isUnsaved={isUnsaved}
+          refreshTrigger={refreshTrigger}
+        />
       </div>
       <div className="admin-file">
         <form onSubmit={handleSubmit}>
-          <input
-            className="input-bar title"
-            value={title}
-            onChange={(e) => markUnsaved(setTitle)(e.target.value)}
-            required
-            placeholder="Title"
-          ></input>
-          <div className="description-container">
-            <textarea
-              value={description}
-              onChange={(e) => markUnsaved(setDescription)(e.target.value)}
-              placeholder="Description..."
-              required
-            ></textarea>
-          </div>
-
-          <div className="sbs-inputs">
-            <input
-              className="input-bar difficulty"
-              value={difficulty}
-              onChange={(e) => markUnsaved(setDifficulty)(e.target.value)}
-              required
-              placeholder="Difficulty"
-            ></input>
-            <input
-              className="input-bar number-of-players"
-              value={numberOfPlayers}
-              onChange={(e) => markUnsaved(setNumberOfPlayers)(e.target.value)}
-              required
-              placeholder="Number of Players"
-            ></input>
-            <input
-              className="input-bar age-recommendation"
-              value={ageRecommendation}
-              onChange={(e) =>
-                markUnsaved(setAgeRecommendation)(e.target.value)
-              }
-              required
-              placeholder="Age Recommendation"
-            ></input>
-          </div>
-
-          <fieldset className="locations-container">
-            <div>Locations:</div>
-            {locations.map((location) => (
-              <label key={location.id} className="location-checkbox">
+          <div className="game-edit-containers">
+            <div className="title-desc-container">
+              <input
+                className="input-bar title"
+                value={title}
+                onChange={(e) => markUnsaved(setTitle)(e.target.value)}
+                required
+                placeholder="Title"
+              ></input>
+              <div className="description-container">
+                <textarea
+                  value={description}
+                  onChange={(e) => markUnsaved(setDescription)(e.target.value)}
+                  placeholder="Description..."
+                  required
+                > </textarea>
+              </div>
+            </div>
+            <div className="sbs-locations-container">
+              <div className="sbs-inputs">
                 <input
-                  type="checkbox"
-                  checked={selectedLocationIds.includes(location.id)}
-                  onChange={() => markUnsaved(toggleLocation)(location.id)}
-                />
-                {location.city} - {location.area_location}
-              </label>
-            ))}
-          </fieldset>
+                  className="input-bar difficulty"
+                  value={difficulty}
+                  onChange={(e) => markUnsaved(setDifficulty)(e.target.value)}
+                  required
+                  placeholder="Difficulty"
+                ></input>
+                <input
+                  className="input-bar number-of-players"
+                  value={numberOfPlayers}
+                  onChange={(e) =>
+                    markUnsaved(setNumberOfPlayers)(e.target.value)
+                  }
+                  required
+                  placeholder="Number of Players"
+                ></input>
+                <input
+                  className="input-bar age-recommendation"
+                  value={ageRecommendation}
+                  onChange={(e) =>
+                    markUnsaved(setAgeRecommendation)(e.target.value)
+                  }
+                  required
+                  placeholder="Age Recommendation"
+                ></input>
+              </div>
+
+              <fieldset className="locations-container">
+                {locations.map((location) => (
+                  <label key={location.id} className="location-checkbox">
+                    <input
+                      type="checkbox"
+                      className="checkbox-box"
+                      checked={selectedLocationIds.includes(location.id)}
+                      onChange={() => markUnsaved(toggleLocation)(location.id)}
+                    />
+                    {location.city} - {location.area_location}
+                  </label>
+                ))}
+              </fieldset>
+            </div>
+          </div>
           {error && <p className="form-error">{error}</p>}
           <button type="submit" disabled={saveStatus === "saving"}>
             {saveStatus === "saving"

@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "./profile.css";
 import { getUserEscapeTime, getGames } from "../../data/games";
-import { updateProfile, getUserProfile, getUserById } from "../../data/auth";
+import {
+  updateProfile,
+  getUserProfile,
+  getUserById,
+  uploadProfileImage,
+} from "../../data/auth";
 import { GameBadges } from "../games/gameBadges";
 
 export const UserProfileComponent = () => {
@@ -13,11 +18,14 @@ export const UserProfileComponent = () => {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-
+  const [editedUsername, setEditedUsername] = useState("");
   const [editedAboutMe, setEditedAboutMe] = useState("");
   const [editedFavoriteGameId, setEditedFavoriteGameId] = useState("");
   const [editedWantsToPlayId, setEditedWantsToPlayId] = useState("");
+  const [isUploadingImage, setIsUploadingImage] = useState("false");
   const [isSaving, setIsSaving] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     getUserProfile().then(setLoggedInUser);
@@ -29,8 +37,8 @@ export const UserProfileComponent = () => {
     fetchProfile.then((user) => {
       setCurrentUser(user);
       setIsLoading(false);
-    })
-  }, [userId])
+    });
+  }, [userId]);
 
   useEffect(() => {
     getGames().then((data) => setGames(data || []));
@@ -54,10 +62,11 @@ export const UserProfileComponent = () => {
   if (isLoading) return <p>Loading profile...</p>;
   if (!currentUser) return <p>Unable to load profile</p>;
 
-  const isOwnProfile = loggedInUser && loggedInUser.id === currentUser.id
-  const showEditingUI = isOwnProfile && isEditing
+  const isOwnProfile = loggedInUser && loggedInUser.id === currentUser.id;
+  const showEditingUI = isOwnProfile && isEditing;
 
   const startEditing = () => {
+    setEditedUsername(currentUser.username || "");
     setEditedAboutMe(currentUser.about_me || "");
     setEditedFavoriteGameId(
       currentUser.favorite_game ? currentUser.favorite_game.id : "",
@@ -75,6 +84,7 @@ export const UserProfileComponent = () => {
   const saveChanges = () => {
     setIsSaving(true);
     const payload = {
+      username: editedUsername,
       about_me: editedAboutMe,
       favorite_game_id: editedFavoriteGameId || null,
       wants_to_play_next_id: editedWantsToPlayId || null,
@@ -95,40 +105,69 @@ export const UserProfileComponent = () => {
   return (
     <div className="profile-container">
       <div className="top-container">
-        <div className="game-badges">
+        <div className="game-badges-container">
           <GameBadges currentUser={currentUser} isEditing={isEditing} />
         </div>
         <div className="user-profile-container">
           <img
-            src={currentUser.profile_image}
+            src={currentUser.profile_image || "/default_avatar.png"}
             alt={currentUser.username}
-            className="profile-img"
+            className={`profile-img ${showEditingUI} ? "profile-img-editable" : ""}`}
+            onClick={() => {
+              if (showEditingUI) fileInputRef.current?.click();
+            }}
           />
+          {showEditingUI && (
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                setIsUploadingImage(true);
+                uploadProfileImage(file)
+                  .then((updatedUser) => setCurrentUser(updatedUser))
+                  .finally(() => setIsUploadingImage(false));
+              }}
+            />
+          )}
           <div className="button-container">
-            <button className="user-button">{currentUser.username}</button>
-            {isOwnProfile && (isEditing ? (
-              <>
-                <button
-                  className="user-button"
-                  onClick={saveChanges}
-                  disabled={isSaving}
-                >
-                  {isSaving ? "Saving..." : "Save"}
-                </button>
-                <button
-                  className="user-button"
-                  onClick={cancelEditing}
-                  disabled={isSaving}
-                >
-                  Cancel
-                </button>
-              </>
+            {showEditingUI ? (
+              <input
+                className="username"
+                value={editedUsername}
+                onChange={(e) => setEditedUsername(e.target.value)}
+              />
             ) : (
-              <button className="user-button" onClick={startEditing}>
-                Edit Profile
-              </button>
-            )
+              <div className="username">{currentUser.username}</div>
             )}
+            {isOwnProfile &&
+              (isEditing ? (
+                <div className="user-edit-buttons">
+                  <button
+                    className="user-button save-btn"
+                    onClick={saveChanges}
+                    disabled={isSaving}
+                  >
+                    {isSaving ? "Saving..." : "Save"}
+                  </button>
+                  <button
+                    className="user-button cancel-button"
+                    onClick={cancelEditing}
+                    disabled={isSaving}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div className="user-edit-buttons">
+                  <button className="user-button" onClick={startEditing}>
+                    Edit Profile
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
       </div>
@@ -136,6 +175,7 @@ export const UserProfileComponent = () => {
         <div className="about-me">
           {showEditingUI ? (
             <textarea
+              className="about-me-body"
               value={editedAboutMe}
               onChange={(e) => setEditedAboutMe(e.target.value)}
               placeholder="Tell others about yourself"

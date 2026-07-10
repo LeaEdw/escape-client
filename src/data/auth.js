@@ -1,3 +1,4 @@
+import { Form } from "react-router-dom";
 import { fetchWithResponse } from "./fetchers";
 
 export function login(user) {
@@ -62,5 +63,18 @@ export function getUserById(userId) {
   return fetchWithResponse(`users/${userId}`, {
     headers: {
       Authorization: `Token ${localStorage.getItem('escape_token')}`}
+  })
+}
+
+export function uploadProfileImage(file) {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  return fetchWithResponse("profile/upload_image", {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${localStorage.getItem('escape_token')}`,
+    },
+    body: formData
   })
 }

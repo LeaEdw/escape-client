@@ -12,16 +12,15 @@
 .right-side-elements {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 24%;
 }
 
-.embla__container {
+.embla__container-carousel {
   display: flex;
   touch-action: pan-y pinch-zoom;
   justify-content: center;
   /* filter: blur(px);          */
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* border: 1px solid #16171d; */
   padding: 20px 0 0 40px;
   border-radius: 8px;
   margin-right: 0;

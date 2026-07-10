@@ -88,7 +88,7 @@ export const LeaderboardPage = () => {
                   );
 
                   return (
-                    <div key={game.id} className="flex-none bg-white">
+                    <div key={game.id} className="flex-none ">
                       {primaryImage && (
                         <img
                           src={`http://localhost:8000/media/${primaryImage.image_path}`}
@@ -103,13 +103,13 @@ export const LeaderboardPage = () => {
             </div>
             <button
               onClick={scrollPrev}
-              className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+              className="absolute -left-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
             >
               ←
             </button>
             <button
               onClick={scrollNext}
-              className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+              className="absolute -right-7 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
             >
               →
             </button>

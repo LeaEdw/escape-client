@@ -58,7 +58,7 @@
   left: 0;
   width: 325px;
   height: 100vh;
-  background-color: #fff;
+  background-color: light-dark(white, #16171d);
   border-right: 2px solid;
   border-radius: 0;
   z-index: 999;
@@ -86,7 +86,7 @@
   color: #305de3;
 }
 
-.dropdown-menu hr {
+.dropdown-menu > * {
   border: none;
   border-top: 3px solid var(--border);
   margin: 4px 0;
@@ -100,7 +100,7 @@
 }
 
 .navbar-brand {
-  color: #111111;
+  color: #6b6375;
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -110,7 +110,6 @@
 }
 
 .menu-item-text {
-    padding-left: 10px;
+  padding-left: 10px;
+  color: light-dark(#6b6375, #9ca3af);
 }
-
-

@@ -69,61 +69,67 @@ export const NewGameForm = () => {
       </div>
       <div className="admin-file">
         <form onSubmit={handleSubmit}>
-          <input
-            className="input-bar title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            placeholder="Title"
-          ></input>
-          <div className="description-container">
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Description..."
-              required
-            ></textarea>
-          </div>
-
-          <div className="sbs-inputs">
-            <input
-              className="input-bar difficulty"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
-              required
-              placeholder="Difficulty"
-            ></input>
-            <input
-              className="input-bar number-of-players"
-              value={numberOfPlayers}
-              onChange={(e) => setNumberOfPlayers(e.target.value)}
-              required
-              placeholder="Number of Players"
-            ></input>
-            <input
-              className="input-bar age-recommendation"
-              value={ageRecommendation}
-              onChange={(e) => setAgeRecommendation(e.target.value)}
-              required
-              placeholder="Age Recommendation"
-            ></input>
-          </div>
-
-          <fieldset className="locations-container">
-            <div>Locations:</div>
-            {locations.map((location) => (
-              <label key={location.id} className="location-checkbox">
+          <div className="game-edit-containers">
+            <div className="title-desc-container">
+              <input
+                className="input-bar title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                placeholder="Title"
+              ></input>
+              <div className="description-container">
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Description..."
+                  required
+                  className="description-textarea"
+                ></textarea>
+              </div>
+            </div>
+            <div className="sbs-locations-container">
+              <div className="sbs-inputs">
                 <input
-                  type="checkbox"
-                  checked={selectedLocationIds.includes(location.id)}
-                  onChange={() => toggleLocation(location.id)}
-                />
-                {location.city} - {location.area_location}
-              </label>
-            ))}
-          </fieldset>
+                  className="input-bar difficulty"
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value)}
+                  required
+                  placeholder="Difficulty"
+                ></input>
+                <input
+                  className="input-bar number-of-players"
+                  value={numberOfPlayers}
+                  onChange={(e) => setNumberOfPlayers(e.target.value)}
+                  required
+                  placeholder="# of Players"
+                ></input>
+                <input
+                  className="input-bar age-recommendation"
+                  value={ageRecommendation}
+                  onChange={(e) => setAgeRecommendation(e.target.value)}
+                  required
+                  placeholder="Age Rec."
+                ></input>
+              </div>
+
+              <fieldset className="locations-container">
+                {locations.map((location) => (
+                  <label key={location.id} className="location-checkbox">
+                    <input
+                      type="checkbox"
+                      className="checkbox-box"
+                      checked={selectedLocationIds.includes(location.id)}
+                      onChange={() => toggleLocation(location.id)}
+                    />
+                    {location.city} - {location.area_location}
+                  </label>
+                ))}
+              </fieldset>
+            </div>
+          </div>
           <div className="image-upload-container">
-            <label for="game-image">
+            <label htmlFor="game-image">
               <input
                 id="game-image"
                 type="file"
