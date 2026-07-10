@@ -1,0 +1,92 @@
+.container-login {
+  text-align: center;
+  margin: 2rem;
+  padding: 5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container > section > a {
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.form-login {
+  padding: 2rem;
+  margin: 2rem auto;
+}
+
+.form-login > h1 {
+  padding: 1rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.form-login > h2 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.form-login > fieldset > input[type="email"] {
+  width: 25em;
+}
+
+.input {
+  text-align: center;
+}
+
+.button {
+  padding: 5px;
+  border-radius: 15px;
+}
+
+
+
+.login-container {
+  margin: 3rem;
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 1px 2px 5px lightgray;
+  background-color: var(--offWhite);
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+
+  height: calc(1.5em + 0.75rem + 2px);
+
+  font-size: 1rem;
+  border: 1px solid var(--outline);
+  border-radius: 0.25rem;
+  margin: 15px;
+  width: 100%;
+}
+
+.form-group {
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="number"] {
+  appearance: textfield;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}

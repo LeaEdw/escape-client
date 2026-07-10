@@ -1,3 +1,5 @@
+import "./login.css"
+
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, setToken } from "../../data/auth";
@@ -31,19 +33,19 @@ export const Login = ({onLogin}) => {
 
   return (
 
-        <section className="hero is-fullheight">
-      <div className="hero-body">
+        <section className="escape is-fullheight">
+      <div className="escape-body">
         <div className="container">
           <div className="columns is-centered">
-            <div className="column is-one-third">
+            <div className="column">
               <div className="box">
                 <h1 className="title has-text-centered">Escape Game Social</h1>
                 <p className="subtitle has-text-centered">Please sign in</p>
 
-                <form onSubmit={handleLogin}>
+                <form className="login-container" onSubmit={handleLogin}>
                   <div className="field">
                     <label className="label">Username</label>
-                    <div className="control">
+                    <div className="form-control">
                       <input
                         className="input is-rounded"
                         type="text"
@@ -55,7 +57,7 @@ export const Login = ({onLogin}) => {
 
                   <div className="field">
                     <label className="label">Password</label>
-                    <div className="control">
+                    <div className="form-control">
                       <input
                         className="input is-rounded"
                         type="password"
@@ -69,8 +71,8 @@ export const Login = ({onLogin}) => {
                     <p className="help is-danger mb-3">Username or password not valid</p>
                   )}
 
-                  <div className="field is-grouped is-grouped-centered mt-4">
-                    <div className="control">
+                  <div className="field">
+                    <div className="form-control">
                       <button
                         className="button is-rounded"
                         style={{ backgroundColor: "#51e2f5", borderColor: "#51e2f5", color: "#333" }}
@@ -79,7 +81,7 @@ export const Login = ({onLogin}) => {
                         Submit
                       </button>
                     </div>
-                    <div className="control">
+                    <div className="form-control">
                       <Link
                         to="/register"
                         className="button is-rounded"

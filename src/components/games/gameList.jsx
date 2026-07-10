@@ -56,14 +56,14 @@ export const GameCarousel = () => {
     <div className="all-elements">
       <div className="left-side-elements">
         {" "}
-        <div className="relative max-w-5xl mx-auto px-8 embla__container">
+        <div className="relative max-w-5xl mx-auto px-8 embla__container-carousel">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-4 embla__slide">
               {games.map((game) => {
                 const primaryImage = game.images?.find((img) => img.is_primary);
 
                 return (
-                  <div key={game.id} className="flex-none w-100 bg-white p-4">
+                  <div key={game.id} className="flex-none w-100  p-4">
                     <h3 className="game_title mb-5">{game.title}</h3>
 
                     {primaryImage && (
@@ -80,13 +80,13 @@ export const GameCarousel = () => {
           </div>
           <button
             onClick={scrollPrev}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+            className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
           >
             ←
           </button>
           <button
             onClick={scrollNext}
-            className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+            className="absolute -right-10 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
           >
             →
           </button>

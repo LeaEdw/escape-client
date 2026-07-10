@@ -62,7 +62,7 @@ export const AdminGameCarousel = ({isUnsaved, refreshTrigger}) => {
                 const primaryImage = game.images?.find((img) => img.is_primary);
 
                 return (
-                  <div key={game.id} className={`slide_admin flex-none bg-white ${!game.active_status ? "opacity-40 grayscale" : ""}`}>
+                  <div key={game.id} className={`slide_admin flex-none ${!game.active_status ? "opacity-40 grayscale" : ""}`}>
                     {primaryImage && (
                       <img
                         src={`http://localhost:8000/media/${primaryImage.image_path}`}
@@ -85,13 +85,13 @@ export const AdminGameCarousel = ({isUnsaved, refreshTrigger}) => {
           </div>
           <button
             onClick={scrollPrev}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white"
+            className="absolute -left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
           >
             ←
           </button>
           <button
             onClick={scrollNext}
-            className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full  bg-white"
+            className="absolute -right-15 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full"
           >
             →
           </button>

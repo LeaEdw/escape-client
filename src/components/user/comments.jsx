@@ -68,81 +68,86 @@ export const CommentSection = ({ game }) => {
       .finally(() => setIsSubmitting(false));
   };
   return (
-    <div className="comments-container">
-      <div className="comment-tab">
-        <div>Comments</div>
-      </div>
-
-      <form className="comment-form" onSubmit={handleSubmit}>
-        <input
-          className="input-bar"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          required
-        />
-        <textarea
-          value={commentBody}
-          onChange={(e) => setCommentBody(e.target.value)}
-          placeholder="Add a comment..."
-          required
-        ></textarea>
-        <label htmlFor="spoiler-checkbox">
-          <input
-            type="checkbox"
-            id="spoiler-checkbox"
-            checked={isSpoiler}
-            onChange={(e) => setIsSpoiler(e.target.checked)}
-          />
-          Contains spoilers
-        </label>
-        {error && <p className="form-error">{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Posting..." : "Post Comment"}
-        </button>
-      </form>
-      
-        <div className="comment-area"><div className="comment-list">
-          {comments.length === 0 ? (
-            <p>No Comments Yet</p>
-          ) : (
-            comments.map((comment) => (
-              <div key={comment.id} className="comment-item">
-                <div
-                  className="user-info"
-                  onClick={() =>
-                    confirmVisitProfile(
-                      navigate,
-                      comment.user.id,
-                      comment.user.username,
-                    )
-                  }
-                >
-                  <img
-                    src={comment.user.profile_image}
-                    alt={comment.user.username}
-                    className="comment-avatar"
-                  />
-
-                  <p className="comment-author">
-                    {comment.user.username}
-                    <span className="comment-time">
-                      {getTimePosted(comment.created_at)}
-                    </span>
-                  </p>
-                </div>
-                <div className="comment-body-container">
-                  <h4 className="comment-title">{comment.title}</h4>
-                  <p
-                    className={`comment-text ${comment.is_locked ? "comment-blurred" : ""}`}
-                  >
-                    {comment.comment_body}
-                  </p>
-                </div>
-              </div>
-            ))
-          )}
+    <div className="comment-layers">
+      <div className="comments-container">
+        <div className="comment-tab">
+          <div>Comments</div>
         </div>
+        <div className="comment-area">
+          <div className="comment-list">
+            {comments.length === 0 ? (
+              <p>No Comments Yet</p>
+            ) : (
+              comments.map((comment) => (
+                <div key={comment.id} className="comment-item">
+                  <div
+                    className="user-info"
+                    onClick={() =>
+                      confirmVisitProfile(
+                        navigate,
+                        comment.user.id,
+                        comment.user.username,
+                      )
+                    }
+                  >
+                    <img
+                      src={comment.user.profile_image || "/default-avatar.png"}
+                      alt={comment.user.username}
+                      className="comment-avatar"
+                    />
+
+                    <p className="comment-author">
+                      {comment.user.username}
+                      <span className="comment-time">
+                        {getTimePosted(comment.created_at)}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="comment-body-container">
+                    <h4 className="comment-title">{comment.title}</h4>
+                    <p
+                      className={`comment-text ${comment.is_locked ? "comment-blurred" : ""}`}
+                    >
+                      {comment.comment_body}
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+          <form className="comment-form" onSubmit={handleSubmit}>
+            <input
+              className="comment-input-bar"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Title"
+              required
+            />
+            <textarea
+              className="comment-textarea"
+              value={commentBody}
+              onChange={(e) => setCommentBody(e.target.value)}
+              placeholder="Add a comment..."
+              required
+            ></textarea>
+            <div className="comment-submission-container">
+              {" "}
+              <label htmlFor="spoiler-checkbox">
+                <input
+                  type="checkbox"
+                  id="spoiler-checkbox"
+                  checked={isSpoiler}
+                  onChange={(e) => setIsSpoiler(e.target.checked)}
+                />
+                Contains spoilers
+              </label>
+              {error && <p className="form-error">{error}</p>}
+              <button className="comment-submit" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Posting..." : "Post Comment"}
+              </button>
+            </div>
+          </form>
+        </div>{" "}
       </div>
     </div>
   );

@@ -13,7 +13,6 @@
   display: flex;
   touch-action: pan-y pinch-zoom;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 20px 0 0 40px;
   border-radius: 8px;
   margin-right: 0;
@@ -49,48 +48,94 @@
   flex-direction: row;
 } */
 
-.left-side-items {
-  display: flex;
-  flex-direction: column;
-}
-
-.admin-file > * {
-  display: flex;
-  border: 2px solid black;
-}
-
 form {
   display: flex;
   flex-direction: column;
 }
 
-description-container {
-    border: 2px solid black;
-  border-radius: 25px;
+.description-container {
+  border: 1px solid;
+  border-color: light-dark (#6b6375, #9ca3af);
 
+  border-radius: 25px;
+  width: 500px;
+  height: 250px;
+  resize: none;
 }
 
+.description-container > textarea {
+  resize: none;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
 
 .locations-container {
   display: flex;
   flex-wrap: wrap;
-  width: 400px;
-  border: 2px solid black;
+  justify-content: center;
+  width: 500px;
+  border: 1px solid;
+  border-color: light-dark (#6b6375, #9ca3af);
   border-radius: 25px;
-  margin: auto;
   padding: 20px;
 }
 
+.location-checkbox {
+  display: flex;
+  padding: 5px 10px;
+}
+
+.checkbox-box {
+  margin-right: 5px;
+}
+
 .input-bar {
-  border: 1px solid black;
+  border: 1px solid;
+  border-color: light-dark (#6b6375, #9ca3af);
+
   border-radius: 20px;
-  width: fit-content;
+  width: 150px;
   text-align: center;
   padding: 10px;
 }
 
+.title {
+  width: 500px;
+}
+
+.game-edit-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .sbs-inputs {
   display: flex;
-gap: 20px;
-width: 500px;
+  gap: 20px;
+  width: 500px;
+  padding: 10px;
+
+  justify-content: space-evenly;
+}
+
+.title-desc-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-desc-container > * {
+  margin: 20px;
+}
+
+.sbs-locations-container > * {
+  margin: 20px;
+}
+
+.image-upload-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 80px;
+  text-align: center;
 }

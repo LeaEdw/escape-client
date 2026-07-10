@@ -1,3 +1,5 @@
+import "./Login.css"
+
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -39,21 +41,21 @@ export const Register = ({ setToken }) => {
   };
 
   return (
-    <section className="hero is-fullheight">
-      <div className="hero-body">
+    <section className="escape is-fullheight">
+      <div className="escape-body">
         <div className="container">
           <div className="columns is-centered">
-            <div className="column is-half">
+            <div className="column">
               <div className="box">
                 <h1 className="title has-text-centered">Escape Game Social</h1>
                 <p className="subtitle has-text-centered">Create an account</p>
 
                 <form onSubmit={handleRegister}>
-                  <div className="columns">
+                  <div className="field">
                     <div className="column">
                       <div className="field">
                         <label className="label">First Name</label>
-                        <div className="control">
+                        <div className="form-control">
                           <input
                             className="input is-rounded"
                             type="text"
@@ -67,7 +69,7 @@ export const Register = ({ setToken }) => {
                     <div className="column">
                       <div className="field">
                         <label className="label">Last Name</label>
-                        <div className="control">
+                        <div className="form-control">
                           <input
                             className="input is-rounded"
                             type="text"
@@ -81,7 +83,7 @@ export const Register = ({ setToken }) => {
 
                   <div className="field">
                     <label className="label">Username</label>
-                    <div className="control">
+                    <div className="form-control">
                       <input
                         className="input is-rounded"
                         type="text"
@@ -93,7 +95,7 @@ export const Register = ({ setToken }) => {
 
                   <div className="field">
                     <label className="label">Email</label>
-                    <div className="control">
+                    <div className="form-control">
                       <input
                         className="input is-rounded"
                         type="email"
@@ -107,7 +109,7 @@ export const Register = ({ setToken }) => {
                     <div className="column">
                       <div className="field">
                         <label className="label">Password</label>
-                        <div className="control">
+                        <div className="form-control">
                           <input
                             className="input is-rounded"
                             type="password"
@@ -121,7 +123,7 @@ export const Register = ({ setToken }) => {
                     <div className="column">
                       <div className="field">
                         <label className="label">Verify Password</label>
-                        <div className="control">
+                        <div className="form-control">
                           <input
                             className="input is-rounded"
                             type="password"
@@ -135,7 +137,7 @@ export const Register = ({ setToken }) => {
 
                   <div className="field">
                     <label className="label">Bio</label>
-                    <div className="control">
+                    <div className="form-control">
                       <textarea
                         className="textarea"
                         placeholder="Tell us about yourself..."
@@ -145,7 +147,7 @@ export const Register = ({ setToken }) => {
                   </div>
 
                   <div className="field is-grouped is-grouped-centered mt-4">
-                    <div className="control">
+                    <div className="form-control">
                       <button
                         className="button is-rounded"
                         style={{
@@ -158,7 +160,7 @@ export const Register = ({ setToken }) => {
                         Submit
                       </button>
                     </div>
-                    <div className="control">
+                    <div className="form-control">
                       <Link
                         to="/login"
                         className="button is-rounded"
