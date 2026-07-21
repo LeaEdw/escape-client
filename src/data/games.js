@@ -61,3 +61,7 @@ export function createComment(commentData) {
         body: JSON.stringify(commentData)
     })
 }
+
+export function deleteComment(commentData) {
+    return fetchWithResponse
+}
