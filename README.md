@@ -28,3 +28,4 @@ To Do:
 - Add the ability for Users to change their profile image on their profiles
 - Display all the images for each game on the edit game page for the admin / make the uploaded files editable.
 - Add background themes / page styling for users to pick from. 
+- Add ability for administrator to be promoted or demoted. 
