@@ -62,6 +62,11 @@ export function createComment(commentData) {
     })
 }
 
-export function deleteComment(commentData) {
-    return fetchWithResponse
+export function deleteComment(commentId) {
+    return fetchWithResponse(`comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Token ${localStorage.getItem('escape_token')}`
+        }
+    })
 }

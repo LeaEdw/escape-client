@@ -3,7 +3,9 @@ import "./comments.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getGames } from "../../data/games";
+import { getUserProfile } from "../../data/auth";
 import { createComment } from "../../data/games";
+import { deleteComment } from "../../data/games";
 import { confirmVisitProfile } from "./profileNavigator";
 
 const getTimePosted = (createdAt) => {
@@ -38,10 +40,16 @@ export const CommentSection = ({ game }) => {
   const [isSpoiler, setIsSpoiler] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     setComments(game?.comments || []);
   }, [game]);
+
+  useEffect(() => {
+    getUserProfile().then(setLoggedInUser);
+  }, []);
 
   if (!game) return null;
 
@@ -66,6 +74,20 @@ export const CommentSection = ({ game }) => {
         setError("Something went wrong posting your comment.");
       })
       .finally(() => setIsSubmitting(false));
+  };
+
+  const handleDelete = (commentId) => {
+    deleteComment(commentId)
+      .then(() => {
+        setComments((prev) =>
+          prev.filter((comment) => comment.id !== commentId),
+        );
+        setSuccessMessage("Message deleted successfully.");
+        setTimeout(() => setSuccessMessage(null), 3000);
+      })
+      .catch(() => {
+        setError("Something went wrong deleting your comment.");
+      });
   };
   return (
     <div className="comment-layers">
@@ -110,6 +132,15 @@ export const CommentSection = ({ game }) => {
                     >
                       {comment.comment_body}
                     </p>
+                    {loggedInUser?.id === comment.user.id && (
+                      <button
+                        type="button"
+                        className="comment-delete"
+                        onClick={() => handleDelete(comment.id)}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </div>
               ))
@@ -142,11 +173,18 @@ export const CommentSection = ({ game }) => {
                 Contains spoilers
               </label>
               {error && <p className="form-error">{error}</p>}
-              <button className="comment-submit" type="submit" disabled={isSubmitting}>
+              <button
+                className="comment-submit"
+                type="submit"
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? "Posting..." : "Post Comment"}
               </button>
             </div>
           </form>
+          {successMessage && (
+            <p className="comment-success">{successMessage}</p>
+          )}
         </div>{" "}
       </div>
     </div>

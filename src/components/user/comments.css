@@ -144,3 +144,17 @@
   color: white;
   border-radius: 10px;
 }
+
+.comment-delete {
+  background: none;
+  border: none;
+  color: rgb(220, 90, 90);
+  font-size: 0.8rem;
+  padding: 4px 0 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.comment-delete:hover {
+  text-decoration: underline;
+}
