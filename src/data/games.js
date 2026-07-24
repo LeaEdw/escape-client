@@ -62,6 +62,16 @@ export function createComment(commentData) {
     })
 }
 
+export function updateComment(commentData) {
+    return fetchWithResponse('comments', {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token ${localStorage.getItem('escape_token')}`
+        },
+        body: JSON.stringify(commentData)
+    })
+}
+
 export function deleteComment(commentId) {
     return fetchWithResponse(`comments/${commentId}`, {
         method: "DELETE",

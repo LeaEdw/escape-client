@@ -2,7 +2,7 @@ import "./comments.css";
 // all other imports
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getGames } from "../../data/games";
+import { getGames, updateComment } from "../../data/games";
 import { getUserProfile } from "../../data/auth";
 import { createComment } from "../../data/games";
 import { deleteComment } from "../../data/games";
@@ -75,6 +75,7 @@ export const CommentSection = ({ game }) => {
       })
       .finally(() => setIsSubmitting(false));
   };
+
 
   const handleDelete = (commentId) => {
     deleteComment(commentId)
