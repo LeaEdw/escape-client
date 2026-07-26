@@ -42,9 +42,50 @@ export const EditComment = () => {
 
       setCommentToEdit(initialEditState);
     } catch (error) {
-        console.error("Failed to update tasks:", error);
-        alert("Failed to update tasks.");
-        return
+      console.error("Failed to update tasks:", error);
+      alert("Failed to update tasks.");
+      return (
+        <>
+          <div className="commentEdit-container">
+            <fieldset>
+              <input
+                type="text"
+                className="editTask-title"
+                placeholder="Add a title"
+                value={commentToEdit.commentTitle}
+              />
+            </fieldset>
+            <textarea
+              className="comment-textarea"
+              value={commentBody}
+              onChange={(e) => setCommentBody(e.target.value)}
+              placeholder="Add a comment..."
+              required
+            ></textarea>
+            <div className="comment-submission-container">
+              {" "}
+              <label htmlFor="spoiler-checkbox">
+                <input
+                  type="checkbox"
+                  id="spoiler-checkbox"
+                  checked={isSpoiler}
+                  onChange={(e) => setIsSpoiler(e.target.checked)}
+                />
+                Contains spoilers
+              </label>
+              {error && <p className="form-error">{error}</p>}
+              <button
+                className="comment-submit"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {" "}
+                {isSubmitting ? "Posting..." : "Post Comment"}
+              </button>
+            </div>
+          </div>
+        </>
+      );
     }
   };
 };
