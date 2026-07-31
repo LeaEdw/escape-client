@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { removeToken } from "../../data/auth";
@@ -10,12 +10,18 @@ import {
   faTrophy,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { getUserProfile } from "../../data/auth";
 
 // This should be able to be ported into various pages that have the go back button
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const isAdmin = localStorage.getItem("is_admin") === "true";
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    getUserProfile().then(setCurrentUser);
+  }, []);
 
   const handleLogout = () => {
     removeToken();
@@ -72,15 +78,23 @@ export const HamburgerMenu = () => {
             {isAdmin && (
               <>
                 <hr />
-                <button onClick={() => handleNav("/new_game")} style={{ color: "light-dark(#6b6375, #9ca3af)" }}>New Game</button>
-                <button onClick={() => handleNav("/edit_game/1")} style={{ color: "light-dark(#6b6375, #9ca3af)" }}>
+                <button
+                  onClick={() => handleNav("/new_game")}
+                  style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+                >
+                  New Game
+                </button>
+                <button
+                  onClick={() => handleNav("/edit_game/1")}
+                  style={{ color: "light-dark(#6b6375, #9ca3af)" }}
+                >
                   Manage Games
                 </button>
               </>
             )}
             <hr />
             <button className="logout-btn" onClick={handleLogout}>
-              Logout
+              Logout, {currentUser.username}
             </button>
           </div>
         )}
