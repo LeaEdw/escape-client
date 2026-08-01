@@ -61,7 +61,6 @@
 
 .leaderboard-game-details > * {
   padding: 20px;
-  
 }
 
 .game-details-ls {
@@ -69,7 +68,6 @@
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
-  
 }
 
 .game-summary {
@@ -155,4 +153,7 @@
   font-weight: bold;
 }
 
-
+.rank-username {
+  display: flex;
+  justify-content: center;
+}
