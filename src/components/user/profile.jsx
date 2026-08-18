@@ -104,11 +104,8 @@ export const UserProfileComponent = () => {
 
   return (
     <div className="profile-container">
-      <div className="top-container">
-        <div className="game-badges-container">
-          <GameBadges currentUser={currentUser} isEditing={isEditing} />
-        </div>
-        <div className="user-profile-container">
+      <div className="left-container">
+        <div className="user-info-container">
           <img
             src={currentUser.profile_image || "/default_avatar.png"}
             alt={currentUser.username}
@@ -170,72 +167,70 @@ export const UserProfileComponent = () => {
               ))}
           </div>
         </div>
-      </div>
-      <div className="bottom-container">
-        <div className="about-me">
-          {showEditingUI ? (
-            <textarea
-              className="about-me-body"
-              value={editedAboutMe}
-              onChange={(e) => setEditedAboutMe(e.target.value)}
-              placeholder="Tell others about yourself"
-              rows={10}
-            />
-          ) : (
-            currentUser.about_me || "No bio yet"
-          )}
-        </div>
-        <div className="favorite-game">
-          <strong>Favorite Game:</strong>
-          {isEditing ? (
-            <select
-              value={editedFavoriteGameId}
-              onChange={(e) => setEditedFavoriteGameId(e.target.value)}
-            >
-              <option value="">Favorite Game: none selected</option>
-              {games.map((game) => (
-                <option key={game.id} value={game.id}>
-                  {game.title}
-                </option>
-              ))}
-            </select>
-          ) : currentUser.favorite_game ? (
-            currentUser.favorite_game.title
-          ) : (
-            "Favorite Game: ???"
-          )}
-        </div>
-        <div>
-          <div className="best-time">
-            <strong>Best Time:</strong>
+        <div className="user-input-container">
+          <div className="about-me">
+            {showEditingUI ? (
+              <textarea
+                className="about-me-body"
+                value={editedAboutMe}
+                onChange={(e) => setEditedAboutMe(e.target.value)}
+                placeholder="Tell others about yourself"
+                rows={10}
+              />
+            ) : (
+              currentUser.about_me || "No bio yet"
+            )}
           </div>
-          <div>{bestTime ? bestTime.escape_time : "--:--:--"}</div>
-          <div>{bestTimeGame && `${bestTimeGame.title}`}</div>
-        </div>
-
-        <div className="wish-item">
-          <strong>Wants to play next:</strong>
-          {isEditing ? (
-            <select
-              value={editedWantsToPlayId}
-              onChange={(e) => setEditedWantsToPlayId(e.target.value)}
-            >
-              <option value="" className="wishlist-text">
-                Wants to play next: none selected
-              </option>
-              {games.map((game) => (
-                <option key={game.id} value={game.id}>
-                  {game.title}
+          <div className="favorite-game">
+            <strong>Favorite Game:</strong>
+            {isEditing ? (
+              <select
+                value={editedFavoriteGameId}
+                onChange={(e) => setEditedFavoriteGameId(e.target.value)}
+              >
+                <option value="">Favorite Game: none selected</option>
+                {games.map((game) => (
+                  <option key={game.id} value={game.id}>
+                    {game.title}
+                  </option>
+                ))}
+              </select>
+            ) : currentUser.favorite_game ? (
+              currentUser.favorite_game.title
+            ) : (
+              "Favorite Game: ???"
+            )}
+          </div>
+          <div className="wish-item">
+            <strong>Wants to play next:</strong>
+            {isEditing ? (
+              <select
+                value={editedWantsToPlayId}
+                onChange={(e) => setEditedWantsToPlayId(e.target.value)}
+              >
+                <option value="" className="wishlist-text">
+                  Wants to play next: none selected
                 </option>
-              ))}
-            </select>
-          ) : (
-            <div className="wishlist-game">
-              {currentUser.wants_to_play_next
-                ? currentUser.wants_to_play_next.title
-                : "TBD"}
-            </div>
-          )}
+                {games.map((game) => (
+                  <option key={game.id} value={game.id}>
+                    {game.title}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <div className="wishlist-game">
+                {currentUser.wants_to_play_next
+                  ? currentUser.wants_to_play_next.title
+                  : "TBD"}
+              </div>
+            )}
+          </div>
+        </div>
+</div>
+
+      <div className="right-container">
+        <div className="game-badges-container">
+          <GameBadges currentUser={currentUser} isEditing={isEditing} />
         </div>
       </div>
     </div>

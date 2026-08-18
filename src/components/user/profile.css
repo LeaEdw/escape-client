@@ -1,7 +1,7 @@
 .profile-container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   width: 1900px;
 }
 
@@ -12,30 +12,33 @@
   width: 90%;
 }
 
+.left-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  vertical-align: middle;
+  align-items: center;
+}
+
 .profile-info {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-  /* align-items: center; */
-  /* width: 400px;
-  height: 500px; */
 }
 
 .button-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   text-align: center;
-  justify-content: center;
-  padding: 10px;
 }
 
-user-profile-container {
+user-info-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   margin: 30px;
   padding: 20px;
-  /* justify-content: center; */
+  width: 500px;
 }
 
 .username {
@@ -68,9 +71,10 @@ user-profile-container {
 }
 
 .profile-img {
+  display: flex;
   border-radius: 100%;
-  width: 400px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
 }
 
@@ -82,22 +86,23 @@ user-profile-container {
   scrollbar-width: hidden;
 }
 
-.bottom-container {
+.user-input-container {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   padding: 30px;
   width: 100%;
 }
 
-.bottom-container > * {
+.user-input-container > * {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 2px solid #6b6375;
-  width: 350px;
-  height: 300px;
-  border-radius: 25px;
+  width: 450px;
+  height: 150px;
+  border-radius: 30px;
+  margin-bottom: 25px;
 }
 
 .wishlist-text {
@@ -106,12 +111,6 @@ user-profile-container {
 
 select {
   text-align: center;
-}
-
-.about-me {
-  width: 350px;
-  height: 300px;
-  padding: 30px;
 }
 
 .about-me > textarea {
