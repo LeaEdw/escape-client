@@ -133,12 +133,12 @@ export const UserProfileComponent = () => {
           <div className="button-container">
             {showEditingUI ? (
               <input
-                className="username"
+                className="user-button"
                 value={editedUsername}
                 onChange={(e) => setEditedUsername(e.target.value)}
               />
             ) : (
-              <div className="username">{currentUser.username}</div>
+              <div className="user-button">{currentUser.username}</div>
             )}
             {isOwnProfile &&
               (isEditing ? (
