@@ -14,10 +14,10 @@
 
 .badge-item {
   position: relative;
-  width: 125px;
-  height: 125px;
+  width: 175px;
+  height: 175px;
   margin: auto;
-  border-radius: 50px;
+  border-radius: 75px;
   overflow: hidden;
   justify-content: flex-start;
 }
