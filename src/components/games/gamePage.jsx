@@ -4,7 +4,11 @@ import { getUserProfile } from "../../data/auth";
 import "./gameList.css";
 
 export const GamePage = () => {
-    return ()
+    return (
+        <>
+        <h1>This will be the game page</h1>
+        </>
+    )
 }
 
 /* The page layout needs to be designed, but will include a form where users can submit theirs ratings for the design, fun and difficulty...

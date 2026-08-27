@@ -5,6 +5,7 @@ import { NewGameForm } from "../pages/admin/newGame"
 import { EditGameFrom } from "../pages/admin/editGame";
 import { LeaderBoard } from "../pages/user/leaderboard";
 import { UserProfile } from "../pages/user/userProfile"
+import { GamePage } from "../components/games/gamePage";
 
 
 export const ApplicationViews = () => {
@@ -26,6 +27,7 @@ export const ApplicationViews = () => {
            <Route path="/leaderboard" element={<LeaderBoard />} />
            <Route path="/profile" element={<UserProfile />} />
            <Route path="/users/:userId" element={<UserProfile />} />
+           <Route path="/games/:gameId" element={<GamePage />} />
         </Route>
       </Routes>
     </>
